@@ -58,7 +58,18 @@ AppAsset::register($this);
             ['label' => 'Acerca de nosotros', 'url' => ['/site/contact']],
             ['label' => 'Como enviar', 'url' => ['/site/about']],
             ['label' => 'Contactanos', 'url' => ['/site/contact']],
-            
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Iniciar Sesión', 'url' => ['/site/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
             
         ],
     ]);
@@ -74,7 +85,9 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="col-md-4">Sociales</div>
+    <div class="col-md-4">
+        Sociales
+    </div>
     <div class="col-md-4">Ubicados</div>
     <div class="col-md-4">Enlaces</div>
 </footer>
