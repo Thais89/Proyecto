@@ -8,6 +8,10 @@ use app\models\UsuariosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\User;
+use yii\filters\AccessControl;
+
+
 
 /**
  * UsuariosController implements the CRUD actions for Usuarios model.
@@ -17,13 +21,37 @@ class UsuariosController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+      public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','create','update'],
+                'rules' => [
+                    [
+                        'actions' => ['index','create','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserAdmin(Yii::$app->user->identity->UsuarioID);
+                        }
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserSimple(Yii::$app->user->identity->UsuarioID);
+                        }
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -65,6 +93,7 @@ class UsuariosController extends Controller
     {
         $model = new Usuarios();
 
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->UsuarioID]);
         } else {
@@ -72,6 +101,7 @@ class UsuariosController extends Controller
                 'model' => $model,
             ]);
         }
+
     }
 
     /**

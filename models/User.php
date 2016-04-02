@@ -20,12 +20,53 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public $Saldo;
     public $authKey;
     public $accessToken;
+    public $role;
 
     public $users;
 
     /**
      * @inheritdoc
      */
+    public static function isUserAdmin($id)
+    {
+        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'1']))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isUserRepartidor($id)
+    {
+        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'2']))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static function isUserOperador($id)
+    {
+        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'3']))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public static function isUsersimple($id)
+    {
+        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'4']))
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
     public static function findIdentity($id)
     {
         $users = Usuarios::find()
@@ -75,6 +116,10 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public function getUsername()
     {
         return $this->nombre.", ".$this->apellido;
+    }
+    public function getRole()
+    {
+        return $this->role;
     }
     /**
      * @inheritdoc

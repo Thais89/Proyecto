@@ -8,20 +8,44 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\User;
 
 class SiteController extends Controller
 {
+
+    public function actionUser()
+    {
+        return $this->render("contact");
+    }
+
+    public function actionAdmin()
+    {
+        return $this->render("/usuarios/create");
+    }
     public function behaviors()
     {
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','user','admin'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout','admin'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserAdmin(Yii::$app->user->identity->UsuarioID);
+                        }
+                    ],
+                    [
+                        'actions' => ['logout','user'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserSimple(Yii::$app->user->identity->UsuarioID);
+                        }
                     ],
                 ],
             ],
@@ -55,16 +79,29 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
-            return $this->goHome();
+            
+            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            {
+                return $this->redirect(["/usuarios/create"]);
+            }else{
+                return $this->redirect(["site/contact"]);
+            }
+        
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+
+            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            {
+                return $this->redirect(["/usuarios/create"]);
+            }else{
+                return $this->redirect(["site/contact"]);
+            }
+        }else{
         return $this->render('login', [
             'model' => $model,
         ]);
+        }
     }
 
     public function actionLogout()

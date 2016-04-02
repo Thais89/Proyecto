@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuarios */
@@ -34,6 +34,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Saldo')->textInput() ?>
 
+    <?php if(!Yii::$app->user->isGuest){ ?>
+    <?= $form->field($model, 'role')->inline()->radioList(['1'=>'Administrador','2'=>'Repartidor','3'=>'Operador']) ?>
+        <?php }else{ $model->role=4;} ?>
     <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
