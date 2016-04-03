@@ -9,46 +9,14 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
+use app\models\Usuarios;
 
 class SiteController extends Controller
 {
 
-    public function actionUser()
-    {
-        return $this->render("contact");
-    }
-
-    public function actionAdmin()
-    {
-        return $this->render("/usuarios/create");
-    }
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout','user','admin'],
-                'rules' => [
-                    [
-                        'actions' => ['logout','admin'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
-
-                            return User::isUserAdmin(Yii::$app->user->identity->UsuarioID);
-                        }
-                    ],
-                    [
-                        'actions' => ['logout','user'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
-
-                            return User::isUserSimple(Yii::$app->user->identity->UsuarioID);
-                        }
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -71,41 +39,51 @@ class SiteController extends Controller
         ];
     }
 
+    public function definirLayout()
+    {
+        if (!\Yii::$app->user->isGuest) 
+        {
+            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            {
+                $this->layout="_admin";
+            }
+            elseif(User::isUserSimple(Yii::$app->user->identity->UsuarioID))
+            {
+                $this->layout="_usuario";
+            }
+            else
+            {
+                $this->layout="main";
+            }
+        }
+    }
+
+
     public function actionIndex()
     {
+        $this->definirLayout();
         return $this->render('index');
     }
 
     public function actionLogin()
     {
-        if (!\Yii::$app->user->isGuest) {
-            
-            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
-            {
-                return $this->redirect(["/usuarios/create"]);
-            }else{
-                return $this->redirect(["site/contact"]);
-            }
-        
-        }
+        $this->definirLayout();
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
-            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
-            {
-                return $this->redirect(["/usuarios/create"]);
-            }else{
-                return $this->redirect(["site/contact"]);
-            }
-        }else{
-        return $this->render('login', [
+        if ($model->load(Yii::$app->request->post()) && $model->login()) 
+        {
+            return $this->goHome();
+        }
+        else
+        {
+            return $this->render('login', [
             'model' => $model,
-        ]);
+            ]);
         }
     }
 
     public function actionLogout()
     {
+        $this->definirLayout();
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -113,6 +91,7 @@ class SiteController extends Controller
 
     public function actionContact()
     {
+        $this->definirLayout();
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -126,6 +105,51 @@ class SiteController extends Controller
 
     public function actionAbout()
     {
+        $this->definirLayout();
         return $this->render('about');
     }
+
+        public function actionView($id)
+    {
+        $this->definirLayout();
+        return $this->render('view', [
+            'model' => Usuarios::find()->where(["UsuarioID"=>$id])->one()
+        ]);
+    }
+
+    /**
+     * Creates a new Usuarios model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
+    public function actionCreate()
+    {
+        $this->definirLayout();
+        $model = new Usuarios();
+        $model->Saldo=(float)0;
+        $model->estado=1;
+        $model->fechaRegistro=date('d-m-Y');
+        $model->role=4;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/site/login']);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+
+    }
+    public function actionUser()
+    {
+        $this->definirLayout();
+        return $this->render("contact");
+    }
+
+    public function actionAdmin()
+    {
+        $this->definirLayout();
+        return $this->render("/site/create");
+    }
+
 }
