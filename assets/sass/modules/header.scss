@@ -1,0 +1,55 @@
+.top-bar{
+	background-color: $topbar-bgcolor;
+	color: $topbar-color;
+	ul{
+		padding: 0;
+		list-style-type: none;
+		margin: .3em 1em .3em 0;
+		li{
+			display: inline-block;
+			margin-right: .5em;
+			a{
+				color: $topbar-color;
+				&:hover{
+					color: $topbar-color-hover;
+				}
+			}
+		}
+	}
+}
+
+.main-header{
+	padding-top: .3em;	
+	img{
+		max-width: $header-width-logo;
+	}
+
+	.main-nav{
+		background-color: $nav-bgcolor;
+		height: $nav-height;
+		a{
+			color: $nav-color !important;
+			text-transform: $nav-texttransform;
+			&:hover{
+				color: $nav-color-hover !important;
+			}
+		}
+	}
+
+	.header-login{
+		padding-top: 2em;
+	}
+}
+
+// Overwrite bootstrap styles
+.navbar-default{
+	background-color: transparent !important;
+	border: 0;
+	.navbar-nav > .active > a,
+	.navbar-nav > .active > a:hover,
+	.navbar-nav > .active > a:focus{
+		background-color: $nav-active-bgcolor !important;
+		color: $nav-active-color !important;
+	}
+}
+
