@@ -46,7 +46,7 @@ AppAsset::register($this);
             <div class="row">
                 <div class="col-sm-12 header-login">
                     <?php  echo   Yii::$app->user->isGuest ? (
-                Html::a("Iniciar Sesión",["/site/login"], ['class'=>'btn btn-primary btn-block']).
+                Html::a("Iniciar Sesión",["/site/login"], ['class'=>'btn btn-primary ']).
                 "<br>¿No tienes cuenta? ".Html::a("Registrate",["/site/create"])
             ) : (
                  Html::beginForm(['/site/logout'], 'post')
@@ -129,8 +129,8 @@ AppAsset::register($this);
     function initMap() {
         var mapDiv = document.getElementById('footer-map');
         var map = new google.maps.Map(mapDiv, {
-          center: {lat: 44.540, lng: -78.546},
-          zoom: 8
+          center: {lat: 7.79420, lng: -72.19922},
+          zoom: 15
         });
     }
 </script>

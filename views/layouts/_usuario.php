@@ -2,7 +2,7 @@
 
 
 <?php $this->beginContent("@app/views/layouts/main.php"); ?>
-<div class="row">
+<div class="container-fluid">
   <div class="col-md-2">
     <?php echo Nav::widget([
     'items' => [
@@ -30,7 +30,7 @@
             'url' => ['#','id'=>Yii::$app->user->identity->id]
         ],
          [
-            'label' => 'Chaequeo de encomienda',
+            'label' => 'Chequeo de encomienda',
             'url' => ['#','id'=>Yii::$app->user->identity->id]
         ],
         
