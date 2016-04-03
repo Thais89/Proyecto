@@ -121,6 +121,12 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     {
         return $this->role;
     }
+
+    public function getSaldo()
+    {
+        return $this->Saldo;
+    }
+
     /**
      * @inheritdoc
      */

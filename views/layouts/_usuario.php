@@ -14,10 +14,10 @@
         '<li class="header">Cargar Saldo</li>',
          [
             'label' => 'Carga con deposito',
-            'url' => ['#','id'=>Yii::$app->user->identity->id]
+            'url' => ['/site/cargar','id'=>Yii::$app->user->identity->id]
         ],
          [
-            'label' => 'Craga por Mercado Pago',
+            'label' => 'Carga por Mercado Pago',
             'url' => ['#','id'=>Yii::$app->user->identity->id]
         ],
           '<li class="header">Encomienda</li>',

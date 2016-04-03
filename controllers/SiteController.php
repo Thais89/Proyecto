@@ -10,6 +10,9 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\User;
 use app\models\Usuarios;
+use app\models\TransaccionUsuario;
+use app\models\Transacciones;
+use app\models\Depositos;
 
 class SiteController extends Controller
 {
@@ -124,6 +127,63 @@ class SiteController extends Controller
         $this->definirLayout();
         return $this->render('about');
     }
+
+    public function actionExito()
+    {
+        $this->definirLayout();
+        return $this->render('exito');
+    }
+
+
+    public function actionfallido()
+    {
+        $this->definirLayout();
+        return $this->render('fallido');
+    }
+
+    public function actionCargar()
+    {
+        $this->definirLayout();
+        $model = new TransaccionUsuario();
+        $modelUsuarios = new Usuarios();
+        $modelDepositos = new Depositos();
+
+        $model->usuarioID = Yii::$app->user->identity->Id;
+        
+        if ($model->load(Yii::$app->request->post()) && $model->transaccionID == 1  && $model->validate()) {
+            
+            $model->fecha = date('Y-m-d');
+            $modelUsuarios = Usuarios::find()->where(['UsuarioID' => $model->usuarioID])->one();
+            $modelUsuarios->Saldo = $modelUsuarios->Saldo + $model->monto;
+
+            $model->save();
+            $modelUsuarios->save();
+        
+            return $this->render('exito');
+        
+        }elseif ($model->load(Yii::$app->request->post()) && $model->transaccionID == 2  && $model->validate()) {
+            
+            $modelUsuarios = Usuarios::find()->where(['UsuarioID' => $model->usuarioID])->one();
+            $modelUsuarios->Saldo = $modelUsuarios->Saldo + $model->monto;
+
+            $modelDepositos = Depositos::find()->where(['Numero' => $model->NumeroReferencia])->one();
+            if ($modelDepositos) {
+                $valor = $modelDepositos->monto;
+                $modelUsuarios->Saldo = $modelUsuarios->Saldo + $valor;
+
+                $model->monto = $valor;
+                $model->save();
+                $modelUsuarios->save();
+
+                return $this->render('exito');
+            }
+            
+            return $this->render('fallido');        
+        } else {
+
+            return $this->render('cargar');
+        }
+    }    
 
     // Pagina Como enviar
     public function actionComoEnviar()
