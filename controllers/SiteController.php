@@ -22,8 +22,11 @@ class SiteController extends Controller
     {
         return $this->render("/usuarios/create");
     }
+<<<<<<< HEAD
     
 
+=======
+>>>>>>> parent of e483992... layout y registro
     public function behaviors()
     {
         return [
@@ -130,6 +133,7 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+<<<<<<< HEAD
 
     // Pagina Como enviar
     public function actionComoEnviar()
@@ -142,4 +146,6 @@ class SiteController extends Controller
     {
         return $this->render('servicios');
     }
+=======
+>>>>>>> parent of e483992... layout y registro
 }

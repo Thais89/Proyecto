@@ -26,6 +26,21 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'estado')->textInput() ?>
+
+    <?= $form->field($model, 'fechaRegistro')->textInput() ?>
+
+    <?= $form->field($model, 'ultimoLogin')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'Saldo')->textInput() ?>
+
+    <?php if(!Yii::$app->user->isGuest){ ?>
+    <?= $form->field($model, 'role')->inline()->radioList(['1'=>'Administrador','2'=>'Repartidor','3'=>'Operador']) ?>
+        <?php }else{ $model->role=4;} ?>
+    <?= $form->field($model, 'authKey')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'accessToken')->textInput(['maxlength' => true]) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

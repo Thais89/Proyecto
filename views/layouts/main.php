@@ -30,8 +30,7 @@ AppAsset::register($this);
     
     <div class="row">
         <div class="col-xs-6 col-md-4">
-           
-            <?= Html::a(Html::img("imagenes/logo.png",["class"=>"logo"]),["/site/index"])  ?>
+            <?= Html::img("imagenes/logo.png",["class"=>"logo"]) ?>
         </div>
         <div class="col-xs-6 col-md-4">
             <p class="titulo">
@@ -42,20 +41,8 @@ AppAsset::register($this);
             <a href='https://www.google.com' style='margin:auto; padding: auto;' target='_blank'><?= Html::img('imagenes/sociales/google.png', ['title'=>'Buscar en Google']) ?></a>
              <a href='https://www.google.com' style='margin:auto; padding: auto;' target='_blank'><?= Html::img('imagenes/sociales/twitter.png', ['title'=>'Buscar en Twitter']) ?></a>
         <a href='https://espanol.yahoo.com/' style='margin:auto; padding: auto;' target='_blank'><?= Html::img('imagenes/sociales/facebook.png', ['title'=>'Buscar en facebook']) ?></a>
-           
-            <?php  echo   Yii::$app->user->isGuest ? (
-                Html::a("Iniciar Sesión",["/site/login"], ['class'=>'btn btn-primary btn-block']).
-                "<br>¿No tienes cuenta? ".Html::a("Registrate",["/site/create"])
-            ) : (
-                 Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link']
-                )
-                . Html::endForm()
-               
-            ); ?>
-            
+            <?php echo Html::a("Iniciar Sesión","#", ['class'=>'btn btn-primary btn-block']) ?>
+            <?php echo "¿No tienes cuenta? ".Html::a("Registrate","#") ?>
         </div>
     </div>
 
@@ -68,10 +55,21 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Inicio', 'url' => ['/site/index']],
             ['label' => 'Servicios', 'url' => ['/site/about']],
-            ['label' => 'Acerca de nosotros', 'url' => ['/site/about']],
+            ['label' => 'Acerca de nosotros', 'url' => ['/site/contact']],
             ['label' => 'Como enviar', 'url' => ['/site/about']],
             ['label' => 'Contactanos', 'url' => ['/site/contact']],
-        
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Iniciar Sesión', 'url' => ['/site/login']]
+            ) : (
+                '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link']
+                )
+                . Html::endForm()
+                . '</li>'
+            )
             
         ],
     ]);
