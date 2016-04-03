@@ -22,6 +22,8 @@ class SiteController extends Controller
     {
         return $this->render("/usuarios/create");
     }
+    
+
     public function behaviors()
     {
         return [
@@ -127,5 +129,17 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    // Pagina Como enviar
+    public function actionComoEnviar()
+    {
+        return $this->render('como-enviar');
+    }
+
+    // Pagina Servicios
+    public function actionServicios()
+    {
+        return $this->render('servicios');
     }
 }
