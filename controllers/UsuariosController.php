@@ -21,7 +21,7 @@ class UsuariosController extends Controller
     /**
      * @inheritdoc
      */
-      public function behaviors()
+    public function behaviors()
     {
         return [
             'access' => [
@@ -38,7 +38,7 @@ class UsuariosController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index'],
+                        'actions' => ['index','update'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -57,12 +57,31 @@ class UsuariosController extends Controller
         ];
     }
 
+    public function definirLayout()
+    {
+        if (!\Yii::$app->user->isGuest) 
+        {
+            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            {
+                $this->layout="_admin";
+            }
+            elseif(User::isUserSimple(Yii::$app->user->identity->UsuarioID))
+            {
+                $this->layout="_usuario";
+            }
+            else
+            {
+                $this->layout="main";
+            }
+        }
+    }
     /**
      * Lists all Usuarios models.
      * @return mixed
      */
     public function actionIndex()
     {
+        $this->definirLayout();
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -77,8 +96,9 @@ class UsuariosController extends Controller
      * @param string $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id = null)
     {
+        $this->definirLayout();
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -89,10 +109,14 @@ class UsuariosController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
+        $this->definirLayout();
         $model = new Usuarios();
-
+        $model->Saldo=(float)0;
+        $model->estado=1;
+        $model->fechaRegistro=date('d-m-Y');
+        $model->role=$id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->UsuarioID]);
@@ -112,6 +136,7 @@ class UsuariosController extends Controller
      */
     public function actionUpdate($id)
     {
+        $this->definirLayout();
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -131,6 +156,7 @@ class UsuariosController extends Controller
      */
     public function actionDelete($id)
     {
+        $this->definirLayout();
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
