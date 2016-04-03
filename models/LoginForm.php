@@ -45,37 +45,11 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'rrectoUsuario y/o correo incorrecto.');
+                $this->addError($attribute, 'Incorrect username or password.');
             }
         }
     }
 
-     public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new Usuarios model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Usuarios();
-
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->UsuarioID]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-
-    }
     /**
      * Logs in a user using the provided username and password.
      * @return boolean whether the user is logged in successfully
