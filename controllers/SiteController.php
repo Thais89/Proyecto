@@ -71,12 +71,15 @@ class SiteController extends Controller
         $this->definirLayout();
         
         $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            $this->redirect(['/site/index']);
+
+        if ($model->load(Yii::$app->request->post())) {            
+            $model->password = SHA1($model->password);
+            if ($model->login()) {                
+                $this->redirect('index');
+            }            
+            
         }else{
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+            return $this->render('login', ['model' => $model,]);
         }
     }
 
@@ -90,8 +93,37 @@ class SiteController extends Controller
         $model->fechaRegistro=date('d-m-Y');
         $model->role=4;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['/site/login']);
+        if ($model->load(Yii::$app->request->post())) {
+            
+            if ($model->validate()) {                                 
+            
+                // $table->password = SHA1($model->password);
+                $model->password = SHA1($model->password);
+                    
+                $model->authKey = SHA1(date('Y-m-d h:i:s') . $model->email);
+
+                if ($model->save()) {
+                    $table = new Usuarios;
+                    $usuario = $table->find()->where(["email"=>$model->email])->one();
+                    
+
+                    $subject    = 'Confirmar Registro de Usuario';
+                    $body       = '<h1> Haga click en el registro para confirmar';
+                    $body      .= '<a href="localhost/deliverysc/web/confirmar-usuario/' . $model->authKey . '"> Confirmar </a>';
+                    Yii::$app->mailer->compose()
+                        ->setTo($usuario->email)
+                        ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
+                        ->setSubject($subject)
+                        ->setHtmlBody($body)
+                        ->send();
+
+                    return $this->redirect(['/site/login']);
+                }
+                // else {
+                //     return $this->redirect('index');
+                // }
+            }
+            // return $this->redirect(['/site/login']);
         } else {
             return $this->render('create', [
                 'model' => $model,

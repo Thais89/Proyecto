@@ -59,6 +59,6 @@ $this->title = 'Index';
 <!-- End Carousel -->
 <div class="container">
 <div class="row">
-   <h2>Demas content</h2>
+   <h2>Delivery SC</h2>
 </div>
 </div>

@@ -41,7 +41,7 @@ AppAsset::register($this);
     <div class="container">
     <div class="row">
         <div class="col-sm-12 col-md-4"> 
-            <?= Html::a(Html::img("img/logo.png",["class"=>"logo"]),["/site/index"])  ?> </div>
+            <?= Html::a(Html::img(Yii::$app->homeUrl . 'img/logo.png',["class"=>"logo"]),["/site/index"])  ?> </div>
         <div class="col-sm-12 col-md-8 text-right">  
             <div class="row">
                 <div class="col-sm-12 header-login">
@@ -84,11 +84,11 @@ AppAsset::register($this);
 
 <div class="container">
 <div class="row">
-    <div class="col-sm-12">
+    <!-- <div class="col-sm-12">
     <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-    </div>
+    </div> -->
 </div>
 </div>
 
@@ -113,11 +113,11 @@ AppAsset::register($this);
     <div class="col-sm-12 col-md-4">
         <h3>Enlaces</h3>
         <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Servcios</a></li>
-            <li><a href="#">Acerca de nosotros</a></li>
-            <li><a href="#">&iquest;Como enviar?</a></li>
-            <li><a href="#">Cont&aacute;ctanos</a></li>
+            <li><?= Html::a('Inicio', ['index']) ?></li>
+            <li><?= Html::a('Servicios', ['servicios']) ?></li>
+            <li><?= Html::a('Acerca de nosotros', ['about'])?></li>
+            <li><?= Html::a('&iquest;Como enviar?', ['como-enviar']) ?></li>
+            <li><?= Html::a('Cont&aacute;ctanos', 'contact') ?></li>
         </ul>
     </div>
 </div>

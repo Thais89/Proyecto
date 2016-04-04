@@ -139,8 +139,15 @@ class UsuariosController extends Controller
         $this->definirLayout();
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->UsuarioID]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->validate()) {
+                $model->password = SHA1($model->password);
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->UsuarioID]);    
+                }
+            }
+            
         } else {
             return $this->render('update', [
                 'model' => $model,
