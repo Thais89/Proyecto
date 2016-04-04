@@ -27,3 +27,4 @@ phpunit.phar
 /phpunit.xml
 
 /node_modules
+/config/db.php
