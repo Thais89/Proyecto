@@ -115,7 +115,7 @@ class UsuariosController extends Controller
         $model = new Usuarios();
         $model->Saldo=(float)0;
         $model->estado=1;
-        $model->fechaRegistro=date('d-m-Y');
+        $model->fechaRegistro=date('Y-m-d');
         $model->role=$id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

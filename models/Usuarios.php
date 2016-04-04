@@ -45,14 +45,20 @@ class Usuarios extends \yii\db\ActiveRecord
             [['email', 'password', 'nombre', 'apellido', 'cedula', 'direcion', 'telefono', 'estado', 'fechaRegistro','role'], 'required'],
             [['estado','role'], 'integer'],
             [['fechaRegistro'], 'safe'],
+            [['nombre'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
+            [['apellido'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
             [['Saldo'], 'number'],
             [['email', 'nombre', 'apellido', 'ultimoLogin'], 'string', 'max' => 45],
             [['password', 'authKey', 'accessToken'], 'string', 'max' => 250],
             [['cedula'], 'string', 'max' => 12],
+            [['cedula'], 'match', 'pattern' => "/^[0-9]+$/i", 'message' => 'Sólo se aceptan números'],
+            [['telefono'], 'match', 'pattern' => "/^[0-9]+$/i", 'message' => 'Sólo se aceptan números'],
             [['direcion'], 'string', 'max' => 200],
             [['telefono'], 'string', 'max' => 15],
-            [['email'], 'unique'],
+            [['email'], 'unique'],            
+            [['email'], 'email', 'message' => 'Email Invalido']
         ];
+
     }
 
     /**
@@ -67,7 +73,7 @@ class Usuarios extends \yii\db\ActiveRecord
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
             'cedula' => 'Cedula',
-            'direcion' => 'Direcion',
+            'direcion' => 'Direccion',
             'telefono' => 'Telefono',
             'estado' => 'Estado',
             'fechaRegistro' => 'Fecha Registro',
