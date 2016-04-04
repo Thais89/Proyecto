@@ -13,12 +13,12 @@ use Yii;
  * @property string $nombre
  * @property string $apellido
  * @property string $cedula
- * @property string $direcion
+ * @property string $direccion
  * @property string $telefono
  * @property integer $estado
  * @property string $fechaRegistro
  * @property string $ultimoLogin
- * @property double $Saldo
+ * @property double $saldo
  * @property string $authKey
  * @property string $accessToken
  *
@@ -42,18 +42,18 @@ class Usuarios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password', 'nombre', 'apellido', 'cedula', 'direcion', 'telefono', 'estado', 'fechaRegistro','role'], 'required'],
+            [['email', 'password', 'nombre', 'apellido', 'cedula', 'direccion', 'telefono', 'estado', 'fechaRegistro','role'], 'required'],
             [['estado','role'], 'integer'],
-            [['fechaRegistro'], 'safe'],
+            [['fechaRegistro'], 'safe'],            
             [['nombre'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
             [['apellido'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
-            [['Saldo'], 'number'],
+            [['saldo'], 'number'],
             [['email', 'nombre', 'apellido', 'ultimoLogin'], 'string', 'max' => 45],
             [['password', 'authKey', 'accessToken'], 'string', 'max' => 250],
             [['cedula'], 'string', 'max' => 12],
             [['cedula'], 'match', 'pattern' => "/^[0-9]+$/i", 'message' => 'Sólo se aceptan números'],
             [['telefono'], 'match', 'pattern' => "/^[0-9]+$/i", 'message' => 'Sólo se aceptan números'],
-            [['direcion'], 'string', 'max' => 200],
+            [['direccion'], 'string', 'max' => 200],
             [['telefono'], 'string', 'max' => 15],
             [['email'], 'unique'],            
             [['email'], 'email', 'message' => 'Email Invalido']
@@ -73,12 +73,12 @@ class Usuarios extends \yii\db\ActiveRecord
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
             'cedula' => 'Cedula',
-            'direcion' => 'Direccion',
+            'direccion' => 'Direccion',
             'telefono' => 'Telefono',
             'estado' => 'Estado',
             'fechaRegistro' => 'Fecha Registro',
             'ultimoLogin' => 'Ultimo Login',
-            'Saldo' => 'Saldo',
+            'saldo' => 'Saldo',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
         ];

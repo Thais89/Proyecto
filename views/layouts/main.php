@@ -47,7 +47,7 @@ AppAsset::register($this);
                 <div class="col-sm-12 header-login">
                     <?php  echo   Yii::$app->user->isGuest ? (
                 Html::a("Iniciar Sesión",["/site/login"], ['class'=>'btn btn-primary ']).
-                "<br>¿No tienes cuenta? ".Html::a("Registrate",["/site/create"])
+                "<br>¿No tienes cuenta? ".Html::a("Registrate",["/site/registro-usuario"])
             ) : (
                  Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(

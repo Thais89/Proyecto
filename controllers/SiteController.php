@@ -13,6 +13,7 @@ use app\models\Usuarios;
 use app\models\TransaccionUsuario;
 use app\models\Transacciones;
 use app\models\Depositos;
+use yii\db\Expression;
 
 class SiteController extends Controller
 {
@@ -75,7 +76,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {            
             $model->password = SHA1($model->password);
             if ($model->login()) {                
-                $this->redirect('index');
+                $this->redirect('usuarios/index');
             }            
             
         }else{
@@ -83,54 +84,54 @@ class SiteController extends Controller
         }
     }
 
-    public function actionCreate()
-    {
-        $this->definirLayout();
-        $this->definirLayout();
+
+    public function actionRegistroUsuario ()
+    {        
         $model = new Usuarios();
-        $model->Saldo=(float)0;
-        $model->estado=1;
-        $model->fechaRegistro=date('d-m-Y');
+        $model->saldo=(float)0;
+        $model->estado=0;
+        $model->fechaRegistro= new Expression('NOW()');
         $model->role=4;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())  ) {
+            echo 'Entra';
+            // Se pasa el password que recibe a SHA1
+            $model->password = SHA1($model->password);
             
-            if ($model->validate()) {                                 
-            
-                // $table->password = SHA1($model->password);
-                $model->password = SHA1($model->password);
+            // Crea un authkey para confirmar registro usuario
+            $model->authKey = SHA1(date('Y-m-d h:i:s') . $model->email);
+
+            // Guarda Usuario
+            if ($model->save()) {
+                
+                $table = new Usuarios;
+                $usuario = $table->find()->where(["email"=>$model->email])->one();
                     
-                $model->authKey = SHA1(date('Y-m-d h:i:s') . $model->email);
+                /**
+                 * Crea el correo para la confirmación                 
+                 */
+                $subject    = 'Confirmar Registro de Usuario';
+                $body       = '<h1> Haga click en el registro para confirmar';
+                $body      .= '<a href="localhost/deliverysc/web/confirmar-usuario/' . $model->authKey . '">Confirmar</a>';
+                Yii::$app->mailer->compose()
+                    ->setTo($usuario->email)
+                    ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
+                    ->setSubject($subject)
+                    ->setHtmlBody($body)
+                    ->send();
 
-                if ($model->save()) {
-                    $table = new Usuarios;
-                    $usuario = $table->find()->where(["email"=>$model->email])->one();
-                    
-
-                    $subject    = 'Confirmar Registro de Usuario';
-                    $body       = '<h1> Haga click en el registro para confirmar';
-                    $body      .= '<a href="localhost/deliverysc/web/confirmar-usuario/' . $model->authKey . '"> Confirmar </a>';
-                    Yii::$app->mailer->compose()
-                        ->setTo($usuario->email)
-                        ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
-                        ->setSubject($subject)
-                        ->setHtmlBody($body)
-                        ->send();
-
-                    return $this->redirect(['/site/login']);
-                }
-                // else {
-                //     return $this->redirect('index');
-                // }
+                return $this->redirect('usuarios/index');
+            } else {
+                return $this->redirect('registro-usuario');
             }
-            // return $this->redirect(['/site/login']);
+            
         } else {
-            return $this->render('create', [
+            return $this->render('registro-usuario', [
                 'model' => $model,
             ]);
         }
-
     }
+
 
     public function actionLogout()
     {
@@ -167,13 +168,13 @@ class SiteController extends Controller
     }
 
 
-    public function actionfallido()
+    public function actionFallido()
     {
         $this->definirLayout();
         return $this->render('fallido');
     }
 
-    public function actionCargarmercado()
+    public function actionCargarMercado()
     {
         $this->definirLayout();
         $model = new TransaccionUsuario();

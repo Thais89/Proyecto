@@ -22,12 +22,12 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'cedula')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'direcion')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+    <div class="form-group text-center">
+        <?= Html::submitButton($model->isNewRecord ? 'Crear Cuenta' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
