@@ -18,7 +18,7 @@
         ],
          [
             'label' => 'Carga por Mercado Pago',
-            'url' => ['#','id'=>Yii::$app->user->identity->id]
+            'url' => ['/site/cargarmercado','id'=>Yii::$app->user->identity->id]
         ],
           '<li class="header">Encomienda</li>',
          [

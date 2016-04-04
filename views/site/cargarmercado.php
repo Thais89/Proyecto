@@ -17,18 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 $array = array('Visa','Mastercard')
 ?>
 <div>
-
-<?php /* Division de Regarga de Saldo*/ 
-
-    $this->title = 'Deposito / Transferencia'; 
-    $array1 = array('Mercantil','Provincial','Venezuela')
-?>
     <div class="col-sm-12 col-md-12 fa-pull-right">
         <h4><?= Html::encode('Saldo a favor: '.Yii::$app->user->identity->Saldo.' Bs') ?></h4>
     </div>
     <div class="col-sm-12 col-md-6">
-        <h2><?= Html::encode($this->title) ?></h2>
-        <?php $form = ActiveForm::begin([
+    	    <h2><?= Html::encode($this->title) ?></h2>
+    	
+
+    	 <?php $form = ActiveForm::begin([
             'id' => 'login-form',
             'options' => ['class' => 'form-horizontal'],
             'fieldConfig' => [
@@ -37,18 +33,16 @@ $array = array('Visa','Mastercard')
             ],
         ]); ?>
 
-        <?= $form->field($model, 'OrigenBanco')->dropDownList($array1) ?>
-        <?= $form->field($model, 'NumeroReferencia')->textInput(array('placeholder' => 'Nª Tarjeta')); ?>
-        <?= $form->field($model, 'fecha')->textInput(array('placeholder' => 'YYYY-MM-DD')); ?>
+        <?= $form->field($model, 'OrigenBanco')->dropDownList($array) ?>
+        <?= $form->field($model, 'NumeroReferencia')->textInput(array('placeholder' => 'Nª Deposito ó Tranferencia')); ?>
+        <?= $form->field($model, 'monto')->textInput(array('placeholder' => 'Bs. F')); ?>
         <?= $form->field($model, 'transaccionID')->dropDownList(
             ArrayHelper::map(Transacciones::find()->all(),'transaccionID','transaccion')
         ) ?>
-        
 
-        <div class="form-group">
-            <?= Html::submitButton('Cargar Saldo',['class' => 'btn btn-primary']) ?>
+    	<div class="form-group">
+    		<?= Html::submitButton('Cargar Saldo',['class' => 'btn btn-primary']) ?>
         </div>
-        <?php ActiveForm::end(); ?> 
+        <?php ActiveForm::end(); ?>	
     </div>
-
 </div>
