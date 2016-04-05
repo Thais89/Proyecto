@@ -18,9 +18,9 @@ class UsuariosSearch extends Usuarios
     public function rules()
     {
         return [
-            [['UsuarioID', 'estado'], 'integer'],
-            [['email', 'password', 'nombre', 'apellido', 'cedula', 'direcion', 'telefono', 'fechaRegistro', 'ultimoLogin', 'authKey', 'accessToken'], 'safe'],
-            [['Saldo'], 'number'],
+            [['usuarioID', 'estado'], 'integer'],
+            [['email', 'password', 'nombre', 'apellido', 'cedula', 'direccion', 'telefono', 'fechaRegistro', 'ultimoLogin', 'authKey', 'accessToken'], 'safe'],
+            [['saldo'], 'number'],
         ];
     }
 
@@ -60,10 +60,10 @@ class UsuariosSearch extends Usuarios
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'UsuarioID' => $this->UsuarioID,
+            'usuarioID' => $this->usuarioID,
             'estado' => $this->estado,
             'fechaRegistro' => $this->fechaRegistro,
-            'Saldo' => $this->Saldo,
+            'saldo' => $this->saldo,
         ]);
 
         $query->andFilterWhere(['like', 'email', $this->email])
@@ -71,7 +71,7 @@ class UsuariosSearch extends Usuarios
             ->andFilterWhere(['like', 'nombre', $this->nombre])
             ->andFilterWhere(['like', 'apellido', $this->apellido])
             ->andFilterWhere(['like', 'cedula', $this->cedula])
-            ->andFilterWhere(['like', 'direcion', $this->direcion])
+            ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
             ->andFilterWhere(['like', 'ultimoLogin', $this->ultimoLogin])
             ->andFilterWhere(['like', 'authKey', $this->authKey])

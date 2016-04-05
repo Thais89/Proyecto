@@ -18,7 +18,7 @@ class TransaccionUsuarioSearch extends TransaccionUsuario
     public function rules()
     {
         return [
-            [['TransaccionUsuarioID', 'usuarioID', 'transaccionID'], 'integer'],
+            [['transaccionUsuarioID', 'usuarioID', 'transaccionID'], 'integer'],
             [['monto'], 'number'],
             [['fecha'], 'safe'],
         ];
@@ -60,7 +60,7 @@ class TransaccionUsuarioSearch extends TransaccionUsuario
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'TransaccionUsuarioID' => $this->TransaccionUsuarioID,
+            'transaccionUsuarioID' => $this->TransaccionUsuarioID,
             'monto' => $this->monto,
             'fecha' => $this->fecha,
             'usuarioID' => $this->usuarioID,

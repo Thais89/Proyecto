@@ -37,8 +37,8 @@ $array = array('Visa','Mastercard')
             ],
         ]); ?>
 
-        <?= $form->field($model, 'OrigenBanco')->dropDownList($array1) ?>
-        <?= $form->field($model, 'NumeroReferencia')->textInput(array('placeholder' => 'Nª Tarjeta')); ?>
+        <?= $form->field($model, 'origenBanco')->dropDownList($array1) ?>
+        <?= $form->field($model, 'numeroReferencia')->textInput(array('placeholder' => 'Nª Tarjeta')); ?>
         <?= $form->field($model, 'fecha')->textInput(array('placeholder' => 'YYYY-MM-DD')); ?>
         <?= $form->field($model, 'transaccionID')->dropDownList(
             ArrayHelper::map(Transacciones::find()->all(),'transaccionID','transaccion')

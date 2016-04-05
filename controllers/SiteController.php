@@ -47,11 +47,11 @@ class SiteController extends Controller
     {
         if (!\Yii::$app->user->isGuest) 
         {
-            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            if(User::isUserAdmin(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_admin";
             }
-            elseif(User::isUserSimple(Yii::$app->user->identity->UsuarioID))
+            elseif(User::isUserSimple(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_usuario";
             }
@@ -74,17 +74,22 @@ class SiteController extends Controller
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post())) {            
+            
             $model->password = SHA1($model->password);
-            if ($model->login()) {                
-                $this->redirect('usuarios/index');
-            }            
+            echo 'Entra: ' . $model->password;
+            if ($model->login()) {    
+                $this->redirect('usuarios/home');
+            } 
             
         }else{
-            return $this->render('login', ['model' => $model,]);
+            return $this->render('login', ['model' => $model]);
         }
     }
 
-
+    /**
+     * Registro de Usuario
+     */
+    
     public function actionRegistroUsuario ()
     {        
         $model = new Usuarios();
@@ -120,7 +125,8 @@ class SiteController extends Controller
                     ->setHtmlBody($body)
                     ->send();
 
-                return $this->redirect('usuarios/index');
+                return $this->redirect('login');
+
             } else {
                 return $this->redirect('registro-usuario');
             }
@@ -132,6 +138,34 @@ class SiteController extends Controller
         }
     }
 
+    /**
+     * Confirmar Registro de Usuario
+     */
+
+    public function actionConfirmarUsuario ($authKey = 'null') 
+    {
+        
+        $table = new Usuarios();
+
+        $usuario = $table
+                    ->find('usuarioID')
+                    ->where(['authKey'=>$authKey])
+                    ->one();
+
+        if (isset($usuario)) {
+            $usuario->estado = 1;
+            $usuario->update();
+            $mensaje = 'Usuario activado satisfactoriamente';
+            $estado = true;
+        } else{
+            $mensaje = 'No se pudo activar el usuario';
+            $estado = false;
+        }
+
+        return $this->render('confirmar-usuario', ['mensaje' => $mensaje, 'estado' => $estado]);
+        
+
+    }
 
     public function actionLogout()
     {

@@ -37,9 +37,9 @@ class TransaccionUsuario extends \yii\db\ActiveRecord
             [['monto','NumeroReferencia'], 'number'],
             [['fecha'], 'safe'],
             [['usuarioID', 'transaccionID'], 'integer'],
-            [['OrigenBanco'],'string', 'max' => 20],
+            [['origenBanco'],'string', 'max' => 20],
             [['transaccionID'], 'exist', 'skipOnError' => true, 'targetClass' => Transacciones::className(), 'targetAttribute' => ['transaccionID' => 'transaccionID']],
-            [['usuarioID'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuarioID' => 'UsuarioID']],
+            [['usuarioID'], 'exist', 'skipOnError' => true, 'targetClass' => Usuarios::className(), 'targetAttribute' => ['usuarioID' => 'usuarioID']],
         ];
     }
 
@@ -49,13 +49,13 @@ class TransaccionUsuario extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'TransaccionUsuarioID' => 'Transaccion Usuario ID',
+            'transaccionUsuarioID' => 'Transaccion Usuario ID',
             'monto' => 'Monto',
             'fecha' => 'Fecha',
             'usuarioID' => 'Identificador',
             'transaccionID' => 'Proceso',
-            'OrigenBanco' => 'Tipo',
-            'NumeroReferencia' => 'Numero de Referencia',
+            'origenBanco' => 'Tipo',
+            'numeroReferencia' => 'Numero de Referencia',
         ];
     }
 
@@ -75,6 +75,6 @@ class TransaccionUsuario extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(Usuarios::className(), ['UsuarioID' => 'usuarioID']);
+        return $this->hasOne(Usuarios::className(), ['usuarioID' => 'usuarioID']);
     }
 }

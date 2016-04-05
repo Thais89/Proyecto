@@ -52,6 +52,16 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'home'              => 'site/index',
+                'servicios'         => 'site/servicios',
+                'acerca'            => 'site/about',
+                'como-enviar'       => 'site/como-enviar',
+                'contactos'         => 'site/contact',
+                'registro-usuario'  => 'site/registro-usuario',
+                'confirmar-usuario/<authKey>'  => 'site/confirmar-usuario',
+                'usuarios/home'     => 'usuarios/index',
+                'login'             => 'site/login',
+
             ],
         ],
         

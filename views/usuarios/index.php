@@ -20,13 +20,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <h2>Bienenido al index</h2>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'UsuarioID',
+            'usuarioID',
             'email:email',
             'password',
             'nombre',

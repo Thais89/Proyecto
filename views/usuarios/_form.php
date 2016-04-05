@@ -22,7 +22,7 @@ use yii\bootstrap\ActiveForm;
 
     <?= $form->field($model, 'cedula')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'direcion')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
 

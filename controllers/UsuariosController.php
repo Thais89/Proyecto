@@ -34,7 +34,7 @@ class UsuariosController extends Controller
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
 
-                            return User::isUserAdmin(Yii::$app->user->identity->UsuarioID);
+                            return User::isUserAdmin(Yii::$app->user->identity->usuarioID);
                         }
                     ],
                     [
@@ -43,7 +43,7 @@ class UsuariosController extends Controller
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
 
-                            return User::isUserSimple(Yii::$app->user->identity->UsuarioID);
+                            return User::isUserSimple(Yii::$app->user->identity->usuarioID);
                         }
                     ],
                 ],
@@ -61,11 +61,11 @@ class UsuariosController extends Controller
     {
         if (!\Yii::$app->user->isGuest) 
         {
-            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            if(User::isUserAdmin(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_admin";
             }
-            elseif(User::isUserSimple(Yii::$app->user->identity->UsuarioID))
+            elseif(User::isUserSimple(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_usuario";
             }
@@ -81,7 +81,7 @@ class UsuariosController extends Controller
      */
     public function actionIndex()
     {
-        $this->definirLayout();
+        $this->definirLayout();        
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -119,7 +119,7 @@ class UsuariosController extends Controller
         $model->role=$id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->UsuarioID]);
+            return $this->redirect(['view', 'id' => $model->usuarioID]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -144,7 +144,7 @@ class UsuariosController extends Controller
             if ($model->validate()) {
                 $model->password = SHA1($model->password);
                 if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->UsuarioID]);    
+                    return $this->redirect(['view', 'id' => $model->usuarioID]);    
                 }
             }
             

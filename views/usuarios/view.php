@@ -17,11 +17,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php   
         if (!\Yii::$app->user->isGuest) 
         {
-            if(User::isUserAdmin(Yii::$app->user->identity->UsuarioID))
+            if(User::isUserAdmin(Yii::$app->user->identity->usuarioID))
             {?>
                 <p>
-                    <?= Html::a('Update', ['update', 'id' => $model->UsuarioID], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Delete', ['delete', 'id' => $model->UsuarioID], [
+                    <?= Html::a('Update', ['update', 'id' => $model->usuarioID], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a('Delete', ['delete', 'id' => $model->usuarioID], [
                         'class' => 'btn btn-danger',
                         'data' => [
                             'confirm' => 'Are you sure you want to delete this item?',
@@ -41,12 +41,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'nombre',
             'apellido',
             'cedula',
-            'direcion',
+            'direccion',
             'telefono',
             'estado',
             'fechaRegistro',
             'ultimoLogin',
-            'Saldo'            
+            'saldo'            
         ],
     ]) ?>
 

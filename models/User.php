@@ -6,18 +6,18 @@ use app\models\Usuarios;
 
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
-    public $UsuarioID;
+    public $usuarioID;
     public $email;
     public $password;
     public $nombre;
     public $apellido;
     public $cedula;
-    public $direcion;
+    public $direccion;
     public $telefono;
     public $estado;
     public $fechaRegistro;
     public $ultimoLogin;
-    public $Saldo;
+    public $saldo;
     public $authKey;
     public $accessToken;
     public $role;
@@ -29,7 +29,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function isUserAdmin($id)
     {
-        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'1']))
+        if(Usuarios::findOne(['usuarioID'=>$id,'estado'=>'1','role'=>'1']))
         {
             return true;
         }else{
@@ -39,7 +39,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
 
     public static function isUserRepartidor($id)
     {
-        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'2']))
+        if(Usuarios::findOne(['usuarioID'=>$id,'estado'=>'1','role'=>'2']))
         {
             return true;
         }else{
@@ -49,7 +49,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
 
     public static function isUserOperador($id)
     {
-        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'3']))
+        if(Usuarios::findOne(['usuarioID'=>$id,'estado'=>'1','role'=>'3']))
         {
             return true;
         }else{
@@ -60,7 +60,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
 
     public static function isUsersimple($id)
     {
-        if(Usuarios::findOne(['UsuarioID'=>$id,'estado'=>'1','role'=>'4']))
+        if(Usuarios::findOne(['usuarioID'=>$id,'estado'=>'1','role'=>'4']))
         {
             return true;
         }else{
@@ -71,7 +71,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     {
         $users = Usuarios::find()
             ->where("estado = :estado",[":estado" => 1])
-            ->andWhere("UsuarioID = :id", [":id"=>$id])
+            ->andWhere("usuarioID = :id", [":id"=>$id])
             ->one();
         
         return isset($users) ? new static($users) : null;
@@ -111,7 +111,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function getId()
     {
-        return $this->UsuarioID;
+        return $this->usuarioID;
     }
     public function getUsername()
     {
@@ -124,7 +124,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
 
     public function getSaldo()
     {
-        return $this->Saldo;
+        return $this->saldo;
     }
 
     /**
