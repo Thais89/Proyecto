@@ -33,8 +33,8 @@ class TransaccionUsuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuarioID', 'transaccionID','NumeroReferencia'], 'required'],
-            [['monto','NumeroReferencia'], 'number'],
+            [['usuarioID', 'transaccionID','numeroReferencia'], 'required'],
+            [['monto','numeroReferencia'], 'number'],
             [['fecha'], 'safe'],
             [['usuarioID', 'transaccionID'], 'integer'],
             [['origenBanco'],'string', 'max' => 20],
@@ -55,7 +55,7 @@ class TransaccionUsuario extends \yii\db\ActiveRecord
             'usuarioID' => 'Identificador',
             'transaccionID' => 'Proceso',
             'origenBanco' => 'Tipo',
-            'numeroReferencia' => 'Numero de Referencia',
+            'numeroReferencia' => 'Número de Referencia',
         ];
     }
 

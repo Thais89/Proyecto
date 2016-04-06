@@ -28,10 +28,10 @@ class Depositos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Numero','estado'], 'integer'],
-            [['Fecha'], 'safe'],
+            [['numero','estado'], 'integer'],
+            [['fecha'], 'safe'],
             [['monto'], 'number'],
-            [['Banco'], 'string', 'max' => 20],
+            [['banco'], 'string', 'max' => 20],
         ];
     }
 
@@ -41,10 +41,10 @@ class Depositos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'DepositoID' => 'DepositoID',
-            'Banco' => 'Banco',
-            'Numero' => 'Numero',
-            'Fecha' => 'Fecha',
+            'depositoID' => 'DepositoID',
+            'banco' => 'Banco',
+            'numero' => 'Numero',
+            'fecha' => 'Fecha',
             'estado' => 'Activo',
             'monto'=>'monto'
         ];

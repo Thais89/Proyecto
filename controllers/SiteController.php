@@ -239,31 +239,14 @@ class SiteController extends Controller
             
             $model->fecha = date('Y-m-d');
             $modelUsuarios = Usuarios::find()->where(['UsuarioID' => $model->usuarioID])->one();
-            $modelUsuarios->Saldo = $modelUsuarios->Saldo + $model->monto;
+            $modelUsuarios->saldo = $modelUsuarios->saldo + $model->monto;
 
             $model->save();
             $modelUsuarios->save();
         
             return $this->render('exito');
         
-        }elseif ($model->load(Yii::$app->request->post()) && $model->transaccionID == 2  && $model->validate()) {
-            
-            $modelUsuarios = Usuarios::find()->where(['UsuarioID' => $model->usuarioID])->one();
-            $modelUsuarios->Saldo = $modelUsuarios->Saldo + $model->monto;
-
-            $modelDepositos = Depositos::find()->where(['Numero' => $model->NumeroReferencia])->one();
-            if ($modelDepositos) {
-                $valor = $modelDepositos->monto;
-                $modelUsuarios->Saldo = $modelUsuarios->Saldo + $valor;
-
-                $model->monto = $valor;
-                $model->save();
-                $modelUsuarios->save();
-
-                return $this->render('exito');
-            }
-            
-            return $this->render('fallido');        
+             
         } else {
 
             return $this->render('cargarmercado');
@@ -279,39 +262,42 @@ class SiteController extends Controller
         $modelDepositos = new Depositos();
 
         $model->usuarioID = Yii::$app->user->identity->Id;
-        
-        if ($model->load(Yii::$app->request->post()) && $model->transaccionID == 1  && $model->validate()) {
-            
-            $model->fecha = date('Y-m-d');
-            $modelUsuarios = Usuarios::find()->where(['UsuarioID' => $model->usuarioID])->one();
-            $modelUsuarios->Saldo = $modelUsuarios->Saldo + $model->monto;
+        $model->transaccionID = 2;
 
-            $model->save();
-            $modelUsuarios->save();
-        
-            return $this->render('exito');
-        
-        }elseif ($model->load(Yii::$app->request->post()) && $model->transaccionID == 2  && $model->validate()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             
-            $modelUsuarios = Usuarios::find()->where(['UsuarioID' => $model->usuarioID])->one();
-            $modelUsuarios->Saldo = $modelUsuarios->Saldo + $model->monto;
-
-            $modelDepositos = Depositos::find()->where(['Numero' => $model->NumeroReferencia])->one();
-            if ($modelDepositos) {
+            $modelUsuarios = Usuarios::find()
+                        ->where(['UsuarioID' => $model->usuarioID])
+                        ->one();
+            $modelDepositos = Depositos::find()
+                        ->where(['numero' => $model->numeroReferencia,'estado'=>'0','banco'=>$model->origenBanco])
+                        ->one();
+            
+            if ($modelDepositos && $modelUsuarios) {
+                
+                $modelDepositos->estado = 1;
                 $valor = $modelDepositos->monto;
-                $modelUsuarios->Saldo = $modelUsuarios->Saldo + $valor;
+                $modelUsuarios->saldo = $modelUsuarios->saldo + $valor;
 
                 $model->monto = $valor;
                 $model->save();
                 $modelUsuarios->save();
+                $modelDepositos->save();
 
-                return $this->render('exito');
+                return $this->render('exito', [
+                    'model' => $modelUsuarios,
+                    'model1'=> $modelDepositos,
+                ]);
             }
             
-            return $this->render('fallido');        
+            return $this->render('fallido', [
+                'model' => $model,
+            ]);        
         } else {
 
-            return $this->render('cargar');
+            return $this->render('cargar', [
+                'model' => $model,
+            ]);
         }
     }    
 

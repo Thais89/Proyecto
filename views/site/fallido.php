@@ -1,8 +1,24 @@
 <?php
 use yii\helpers\Html;
+
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Usuarios */
+
+$this->title = 'Recarga de saldo fallida';
 ?>
-<div>
-	<h1>Lo sentimos la recarga no se realizo</h1>
+
+<div class="container">
+<div class="row">
+
+<div class="col-sm-12 col-md-8 col-md-offset-2">
+    <h1 align="center"><?= Html::encode($this->title) ?></h1>
+		
+	<div class="alert <?= 'alert-danger' ?> text-center">
+		<?= Html::encode('Verifique número de referencia y/o banco') ?>
+	</div>
 	
-	<h5><?= Html::encode('Saldo actual: '.Yii::$app->user->identity->Saldo.' Bs') ?></h5>
+
+</div>
+</div>
 </div>
