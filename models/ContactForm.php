@@ -21,11 +21,16 @@ class ContactForm extends Model
      */
     public function rules()
     {
-        return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+        return [            
+            // Name
+            ['name', 'required', 'message' => 'Nombre no puede estar vacio'],
+            // Email
+            ['email', 'required', 'message' => 'Email no puede estar vacio'],
             ['email', 'email'],
+            // Subject
+            ['subject', 'required', 'message' => 'Asunto de puede estar vacio'],
+            // Body
+            ['body', 'required', 'message' => 'Mensaje no puede estar vacio'],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];

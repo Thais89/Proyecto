@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	</div>
 	<div class="row">
 		<div class="col-sm-12 col-md-12">
-			Recomentaciones
+			Recomendaciones
 		</div>
 	</div>	
 </div>

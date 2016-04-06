@@ -59,6 +59,33 @@ $this->title = 'Index';
 <!-- End Carousel -->
 <div class="container">
 <div class="row">
-   <h2>Delivery SC</h2>
+   <h2 class="text-center">&iquest;Como enviar?</h2>
 </div>
+<div class="row">
+    <div class="col-sm-12 col-md-3">
+      <h3>Paso 1:</h3>
+      <p class="well well-lg">
+        Registrate en nuestro sitio e inicia sesión
+      </p>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      <h3>Paso 2:</h3>
+      <p class="well well-lg">
+        Indica la ubicación a donde irá el envío junto con 
+        la fecha en que quieres que se realice
+      </p>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      <h3>Paso 3:</h3>
+      <p class="well well-lg">
+        Indica el detalle de la encomienda
+      </p>
+    </div>
+    <div class="col-sm-12 col-md-3">
+      <h3>Paso 4:</h3>
+      <p class="well well-lg">
+        Realiza tu pago y confirma los datos de envío
+      </p>
+    </div>
+  </div>
 </div>
