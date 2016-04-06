@@ -126,13 +126,13 @@ use app\models\Usuarios;
         var marker1 = new google.maps.Marker({
             map: map, 
             position: location1,
-            color: blue,
+            //color: blue,
             title: "Direccion Origen"
         });
         var marker2 = new google.maps.Marker({
             map: map, 
             position: location2,
-            color: red,
+            // color: red,
             title: "Direccion Destino"
         });
         // create the text to be shown in the infowindows
@@ -169,6 +169,7 @@ use app\models\Usuarios;
         });
         
         // compute distance between the two points
+        // Radio
         var R = 6371; 
         var dLat = toRad(location2.lat()-location1.lat());
         var dLon = toRad(location2.lng()-location1.lng()); 
@@ -184,6 +185,7 @@ use app\models\Usuarios;
         
         document.getElementById("distance_direct").innerHTML = "<br/>La distancia entre las dos ubicaciones (en linea recta) es: "+d+" km";
         document.getElementById("charge").innerHTML = "<br/>El monto a cobrar por la encomienda es: "+d*100+"  BsF";
+        console.log('Cargo: '+(d*100)+' bsf');
     }
     
     function toRad(deg) 
@@ -219,8 +221,8 @@ use app\models\Usuarios;
     </div>
     <center><div style="width:100%; height:10%" id="distance_direct"></div></center>
     <center><div style="width:100%; height:10%" id="distance_road"></div></center>
-    <center><div style="width:100%; height:10%" id="charge"></div></center>     
-    <center><div id="map_canvas" style="width:70%; height:54%"></div></center>
+    <center><div style="width:100%; height:10%" id="charge" style="width: 200px; height: 100px; background-color: #c2c2c2;"></div></center>     
+    <center><div id="map_canvas" style="width:500px; height:400px; background-color: #c2c2c2;"></div></center>
 
 <div class="encomiendas-form">
 
