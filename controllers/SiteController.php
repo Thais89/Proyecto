@@ -117,7 +117,7 @@ class SiteController extends Controller
                  */
                 $subject    = 'Confirmar Registro de Usuario';
                 $body       = '<h1> Haga click en el registro para confirmar';
-                $body      .= '<a href="localhost/deliverysc/web/confirmar-usuario/' . $model->authKey . '">Confirmar</a>';
+                $body      .= '<a href="http://localhost/deliverysc/web/confirmar-usuario/' . $model->authKey . '">Confirmar</a>';
                 Yii::$app->mailer->compose()
                     ->setTo($usuario->email)
                     ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
