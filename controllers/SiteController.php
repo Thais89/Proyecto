@@ -75,11 +75,13 @@ class SiteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {            
             
-            $model->password = SHA1($model->password);
-            echo 'Entra: ' . $model->password;
+            $model->password = SHA1($model->password);            
             if ($model->login()) {    
                 $this->redirect('usuarios/home');
-            } 
+            } else {
+                echo 'No hace login';
+            }
+
             
         }else{
             return $this->render('login', ['model' => $model]);
@@ -180,6 +182,22 @@ class SiteController extends Controller
         $this->definirLayout();
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+
+            /**
+            * Crea el correo para la confirmación 
+            */
+           
+            $subject    = $model->subject;
+            $body       = '<p>Usuario: ' . $model->name . '</p>';
+            $body       .= $model->body;
+                        
+            Yii::$app->mailer->compose()
+                ->setTo(Yii::$app->params['adminEmail'])                
+                ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
+                ->setSubject($subject)
+                ->setHtmlBody($body)
+                ->send();
+
             Yii::$app->session->setFlash('contactFormSubmitted');
 
             return $this->refresh();

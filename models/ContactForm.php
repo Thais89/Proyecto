@@ -24,6 +24,7 @@ class ContactForm extends Model
         return [            
             // Name
             ['name', 'required', 'message' => 'Nombre no puede estar vacio'],
+            [['name'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
             // Email
             ['email', 'required', 'message' => 'Email no puede estar vacio'],
             ['email', 'email'],

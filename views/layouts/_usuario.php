@@ -23,7 +23,7 @@
           '<li class="header">Encomienda</li>',
          [
             'label' => 'Realizar Encomienda',
-            'url' => ['#','id'=>Yii::$app->user->identity->id]
+            'url' => ['/encomiendas/index','id'=>Yii::$app->user->identity->id]
         ],
          [
             'label' => 'Modificar Encomienda',

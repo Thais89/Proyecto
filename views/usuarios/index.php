@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <h2>Bienenido al index</h2>
-    <?= GridView::widget([
+    <!-- <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]); ?> -->
 </div>
 </div>
 </div>

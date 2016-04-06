@@ -113,7 +113,7 @@ class UsuariosController extends Controller
     {
         $this->definirLayout();
         $model = new Usuarios();
-        $model->Saldo=(float)0;
+        $model->saldo=(float)0;
         $model->estado=1;
         $model->fechaRegistro=date('Y-m-d');
         $model->role=$id;
