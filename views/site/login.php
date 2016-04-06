@@ -13,18 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="container site-login">
 <div class="row">
 <div class="col-sm-12 col-md-6">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="text-center"><?= Html::encode($this->title) ?></h1>
     
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
-        'options' => ['class' => 'form-horizontal'],
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-7\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-2 control-label'],
-        ],
+        'layout' => 'horizontal',
+        'options' => ['class' => 'form-horizontal'],        
     ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 
@@ -40,6 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php ActiveForm::end(); ?>
     
+</div>
+<div class="col-sm-12 col-md-6 text-center">
+    <img src="<?= Yii::$app->request->baseUrl . '/img/delivery.jpg';?>" alt="DeliverySC" >
 </div>
 </div>
 </div>
