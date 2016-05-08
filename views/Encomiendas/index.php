@@ -16,33 +16,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Crear Encomienda', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Nueva Encomienda', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            [
-            'attribute' => 'usuarioID',
-            'value' => 'usuarioID.cedula'
-            ],
+
             'encomiendaID',
-            'latitudOrigen',
-            'longitudOrigen',
-            'latitudDestino',
-            'longitudDestino',
-            // 'distancia',
-            // 'cantIDadDocumentos',
+            'DireccionOrigen',
+            'DireccionDestino',
+            'distancia',
+            'tiempoEstimado',
             // 'receptorNombre',
             // 'receptorCedula',
-            // 'estado',
             // 'precio',
             // 'fechaSolicitud',
             // 'fechaRecepcion',
             // 'fechaEntrega',
-             //'usuarioID',
-             'estadoEncomiendaID',
+            // 'usuarioID',
+            // 'estadoEncomiendaID',
+            // 'tabuladorID',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

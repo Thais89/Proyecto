@@ -17,23 +17,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'encomiendaID') ?>
 
-    <?= $form->field($model, 'latitudOrigen') ?>
+    <?= $form->field($model, 'DireccionOrigen') ?>
 
-    <?= $form->field($model, 'longitudOrigen') ?>
+    <?= $form->field($model, 'DireccionDestino') ?>
 
-    <?= $form->field($model, 'latitudDestino') ?>
+    <?= $form->field($model, 'distancia') ?>
 
-    <?= $form->field($model, 'longitudDestino') ?>
-
-    <?php // echo $form->field($model, 'distancia') ?>
-
-    <?php // echo $form->field($model, 'cantIDadDocumentos') ?>
+    <?= $form->field($model, 'tiempoEstimado') ?>
 
     <?php // echo $form->field($model, 'receptorNombre') ?>
 
     <?php // echo $form->field($model, 'receptorCedula') ?>
-
-    <?php // echo $form->field($model, 'estado') ?>
 
     <?php // echo $form->field($model, 'precio') ?>
 
@@ -46,6 +40,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'usuarioID') ?>
 
     <?php // echo $form->field($model, 'estadoEncomiendaID') ?>
+
+    <?php // echo $form->field($model, 'tabuladorID') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

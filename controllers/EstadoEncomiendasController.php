@@ -28,8 +28,11 @@ class EstadoEncomiendasController extends Controller
                     [
                         'actions' => ['index','create','update'],
                         'allow' => true,
-                        'roles' => ['@']
-                        
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserAdmin(Yii::$app->user->identity->usuarioID);
+                        }
                     ],
                     [
                         'actions' => ['index','update'],
@@ -42,15 +45,15 @@ class EstadoEncomiendasController extends Controller
                     ],
                 ],
             ],
-
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
     }
+
 
     /**
      * Lists all EstadoEncomiendas models.

@@ -18,9 +18,9 @@ class EncomiendasSearch extends Encomiendas
     public function rules()
     {
         return [
-            [['encomiendaID', 'cantIDadDocumentos', 'estado', 'usuarioID', 'estadoEncomiendaID'], 'integer'],
-            [['latitudOrigen', 'longitudOrigen', 'latitudDestino', 'longitudDestino', 'precio'], 'number'],
-            [['distancia', 'receptorNombre', 'receptorCedula', 'fechaSolicitud', 'fechaRecepcion', 'fechaEntrega'], 'safe'],
+            [['encomiendaID', 'tiempoEstimado', 'usuarioID', 'estadoEncomiendaID', 'tabuladorID'], 'integer'],
+            [['DireccionOrigen', 'DireccionDestino', 'receptorNombre', 'receptorCedula', 'fechaSolicitud', 'fechaRecepcion', 'fechaEntrega'], 'safe'],
+            [['distancia', 'precio'], 'number'],
         ];
     }
 
@@ -61,21 +61,19 @@ class EncomiendasSearch extends Encomiendas
         // grid filtering conditions
         $query->andFilterWhere([
             'encomiendaID' => $this->encomiendaID,
-            'latitudOrigen' => $this->latitudOrigen,
-            'longitudOrigen' => $this->longitudOrigen,
-            'latitudDestino' => $this->latitudDestino,
-            'longitudDestino' => $this->longitudDestino,
-            'cantIDadDocumentos' => $this->cantIDadDocumentos,
-            'estado' => $this->estado,
+            'distancia' => $this->distancia,
+            'tiempoEstimado' => $this->tiempoEstimado,
             'precio' => $this->precio,
             'fechaSolicitud' => $this->fechaSolicitud,
             'fechaRecepcion' => $this->fechaRecepcion,
             'fechaEntrega' => $this->fechaEntrega,
             'usuarioID' => $this->usuarioID,
             'estadoEncomiendaID' => $this->estadoEncomiendaID,
+            'tabuladorID' => $this->tabuladorID,
         ]);
 
-        $query->andFilterWhere(['like', 'distancia', $this->distancia])
+        $query->andFilterWhere(['like', 'DireccionOrigen', $this->DireccionOrigen])
+            ->andFilterWhere(['like', 'DireccionDestino', $this->DireccionDestino])
             ->andFilterWhere(['like', 'receptorNombre', $this->receptorNombre])
             ->andFilterWhere(['like', 'receptorCedula', $this->receptorCedula]);
 

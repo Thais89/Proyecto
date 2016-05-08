@@ -8,6 +8,7 @@ use app\models\EncomiendasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\User;
 use yii\filters\AccessControl;
 
 /**
@@ -18,9 +19,10 @@ class EncomiendasController extends Controller
     /**
      * @inheritdoc
      */
+    public $onloadFunction='initialize();';
     public function behaviors()
     {
-        return[ 
+        return [
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index','create','update'],
@@ -28,11 +30,14 @@ class EncomiendasController extends Controller
                     [
                         'actions' => ['index','create','update'],
                         'allow' => true,
-                        'roles' => ['@']
-                        
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserAdmin(Yii::$app->user->identity->usuarioID);
+                        }
                     ],
                     [
-                        'actions' => ['index','update'],
+                        'actions' => ['index','create','update'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
