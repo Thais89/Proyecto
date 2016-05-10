@@ -21,7 +21,7 @@ class m160510_125818_create_usuarios extends Migration
             'saldo'         => $this->double(),
             'authKey'       => $this->string(),
             'accessToken'   => $this->string(),
-            'role'          => $this->integer(1)->defaultValue(4)
+            'role'          => $this->integer(1)->defaultValue(4)->notNull()
         ]);
     }
 

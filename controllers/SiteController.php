@@ -79,6 +79,7 @@ class SiteController extends Controller
             if ($model->login()) {    
                 $this->redirect('usuarios/home');
             } else {
+                // Aqui se debe poner pagina de error de login
                 echo 'No hace login';
             }
 

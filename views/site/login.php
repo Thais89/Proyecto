@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => ['class' => 'form-horizontal'],        
     ]); ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
+        <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Correo') ?>
 
         <?= $form->field($model, 'password')->passwordInput()->label('Contraseña') ?>
 
