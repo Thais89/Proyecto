@@ -47,13 +47,18 @@ class SiteController extends Controller
     {
         if (!\Yii::$app->user->isGuest) 
         {
-            if(User::isUserAdmin(Yii::$app->user->identity->usuarioID))
+            if (User::isUserAdmin(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_admin";
             }
-            elseif(User::isUserSimple(Yii::$app->user->identity->usuarioID))
+            elseif (User::isUserSimple(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_usuario";
+            }
+            elseif (User::isUserRepartidor(Yii::$app->user->identity->usuarioID))
+            {                   
+                echo 'es repartidor';
+                $this->layout="_repartidor";
             }
             else
             {
@@ -101,8 +106,7 @@ class SiteController extends Controller
         $model->fechaRegistro= new Expression('NOW()');
         $model->role=4;
 
-        if ($model->load(Yii::$app->request->post())  ) {
-            echo 'Entra';
+        if ($model->load(Yii::$app->request->post())  ) {            
             // Se pasa el password que recibe a SHA1
             $model->password = SHA1($model->password);
             

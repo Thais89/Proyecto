@@ -68,11 +68,11 @@ class Usuarios extends \yii\db\ActiveRecord
     {
         return [
             'UsuarioID' => 'Usuario ID',
-            'email' => 'Email',
-            'password' => 'Password',
+            'email' => 'Correo',
+            'password' => 'Contraseña',
             'nombre' => 'Nombre',
             'apellido' => 'Apellido',
-            'cedula' => 'Cedula',
+            'cedula' => 'Cédula',
             'direccion' => 'Direccion',
             'telefono' => 'Telefono',
             'estado' => 'Estado',

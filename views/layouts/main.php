@@ -54,10 +54,9 @@ AppAsset::register($this);
                 . Html::submitButton(
                     'Cerrar Sesión (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link']
-                )
+                ) .'<br>' . Html::a("Mi Cuenta",["/usuarios/home"], ['class'=>'btn btn-primary '])
                 . Html::endForm()
-               
-            ); ?>
+            ); ?>                
                 </div>
             </div>
         </div>

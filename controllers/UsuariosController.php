@@ -46,6 +46,15 @@ class UsuariosController extends Controller
                             return User::isUserSimple(Yii::$app->user->identity->usuarioID);
                         }
                     ],
+                    [
+                        'actions' => ['index','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
+                            return User::isUserRepartidor(Yii::$app->user->identity->usuarioID);
+                        }
+                    ],
                 ],
             ],
             'verbs' => [
@@ -65,9 +74,14 @@ class UsuariosController extends Controller
             {
                 $this->layout="_admin";
             }
-            elseif(User::isUserSimple(Yii::$app->user->identity->usuarioID))
+            elseif (User::isUserSimple(Yii::$app->user->identity->usuarioID))
             {
                 $this->layout="_usuario";
+            }
+            elseif (User::isUserRepartidor(Yii::$app->user->identity->usuarioID))
+            {
+                echo 'es repartidor';
+                $this->layout="_repartidor";
             }
             else
             {
@@ -118,8 +132,40 @@ class UsuariosController extends Controller
         $model->fechaRegistro=date('Y-m-d');
         $model->role=$id;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->usuarioID]);
+        if ($model->load(Yii::$app->request->post())  ) {            
+            // Se pasa el password que recibe a SHA1
+            $model->password = SHA1($model->password);
+            
+            // Crea un authkey para confirmar registro usuario
+            $model->authKey = SHA1(date('Y-m-d h:i:s') . $model->email);
+
+            // Guarda Usuario
+            if ($model->save()) {
+                
+                $table = new Usuarios;
+                $usuario = $table->find()->where(["email"=>$model->email])->one();
+                    
+                /**
+                 * Crea el correo para la confirmación                 
+                 */
+                $subject    = 'Confirmar Registro de Usuario';
+                $body       = '<h1> Haga click en el registro para confirmar';
+                $body      .= '<a href="http://localhost/deliverysc/web/confirmar-usuario/' . $model->authKey . '">Confirmar</a>';
+                Yii::$app->mailer->compose()
+                    ->setTo($usuario->email)
+                    ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
+                    ->setSubject($subject)
+                    ->setHtmlBody($body)
+                    ->send();
+
+                return $this->redirect(['view', 'id' => $model->usuarioID]);
+
+            } else {
+               return $this->render('create', [
+                'model' => $model,
+                ]);
+            }
+            
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -183,5 +229,16 @@ class UsuariosController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionListado () {
+        $this->definirLayout();
+        $searchModel = new UsuariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('listado', [
+            // 'searchModel' => $searchModel,
+            // 'dataProvider' => $dataProvider,
+        ]);
     }
 }

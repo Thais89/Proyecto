@@ -8,29 +8,30 @@ use yii\bootstrap\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="usuarios-form">
+<?php $form = ActiveForm::begin(); ?>
+<div class="usuarios-form row">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <div class="col-sm-12 col-md-6">
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>    
+        <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($model, 'nombre')->textInput(['maxlength' => true]) ?>
+    <div class="col-sm-12 col-md-6">
+        <?= $form->field($model, 'cedula')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'apellido')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cedula')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
-
-
-    <div class="form-group">
+    <div class="col-md-12 form-group text-center">
         <?= Html::submitButton($model->isNewRecord ? 'Registrar' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
 </div>
+
+<?php ActiveForm::end(); ?>

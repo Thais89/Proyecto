@@ -11,25 +11,19 @@ use yii\bootstrap\Nav;
 $this->title = 'Usuarios';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="usuarios-index container">
+
 <div class="row">
-<div class="col-sm-12 col-md-12">
-    
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <h2>Listado de Usuarios registrados</h2>
+</div>
+<div class="row">
 
-
-
-
-    <!-- <p>
-        <?= Html::a('Create Usuarios', ['create'], ['class' => 'btn btn-success']) ?>
-    </p> -->    
-    <!-- <?= GridView::widget([
+<?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'usuarioID',
             'email:email',
             'password',
@@ -44,10 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'Saldo',
             // 'authKey',
             // 'accessToken',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?> -->
-</div>
+    ]); ?>
 </div>
 </div>

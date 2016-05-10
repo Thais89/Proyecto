@@ -20,11 +20,11 @@ $this->params['breadcrumbs'][] = $this->title;
             if(User::isUserAdmin(Yii::$app->user->identity->usuarioID))
             {?>
                 <p>
-                    <?= Html::a('Update', ['update', 'id' => $model->usuarioID], ['class' => 'btn btn-primary']) ?>
-                    <?= Html::a('Delete', ['delete', 'id' => $model->usuarioID], [
+                    <?= Html::a('Actualizar', ['update', 'id' => $model->usuarioID], ['class' => 'btn btn-primary']) ?>
+                    <?= Html::a('Borrar', ['delete', 'id' => $model->usuarioID], [
                         'class' => 'btn btn-danger',
                         'data' => [
-                            'confirm' => 'Are you sure you want to delete this item?',
+                            'confirm' => '¿Estas seguro que quieres eliminar este item?',
                             'method' => 'post',
                         ],
                     ]) ?>

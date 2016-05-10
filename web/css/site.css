@@ -25,6 +25,16 @@ h2 {
   padding: 70px 15px 20px; }
 
 /* add sorting icons to gridview sort links */
+.user-panel {
+  min-height: 250px; }
+
+.user-title {
+  font-weight: 700;
+  font-size: 1.4em; }
+
+.user-name {
+  font-size: 1.2em; }
+
 .top-bar {
   background-color: #000000;
   color: #ffffff; }
