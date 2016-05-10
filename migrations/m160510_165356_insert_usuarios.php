@@ -2,23 +2,22 @@
 
 use yii\db\Migration;
 
-class m160510_165355_insert_usuarios extends Migration
+class m160510_165356_insert_usuarios extends Migration
 {
     public function up()
     {
         $this->insert('usuarios',[            
-            'email'         => 'jcpware@gmail.com',
+            'email'         => 'rene.martinez1337@gmail.com',
             'password'      => SHA1('123456'),
-            'nombre'        => 'Julio',
-            'apellido'      => 'Carreño',
-            'cedula'        => '16555165',
-            'direccion'     => 'Altos de paramillo',
-            'telefono'      => '0414-7259029',
-            'estado'        => 0,
-            'fechaRegistro' => '2016-05-05',
-            'role'          => 3
+            'nombre'        => 'Rene',
+            'apellido'      => 'Martinez',
+            'cedula'        => '17109502',
+            'direccion'     => 'La Romera',
+            'telefono'      => '0414-0747854',
+            'estado'        => 1,
+            //'fechaRegistro' => '',
+            'role'          => 4
         ]);
-
          
 
 

@@ -43,11 +43,11 @@ class Encomiendas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['DireccionOrigen', 'DireccionDestino', 'distancia', 'tiempoEstimado', 'receptorNombre', 'receptorCedula', 'precio', 'fechaRecepcion', 'fechaEntrega', 'usuarioID', 'tabuladorID'], 'required'],
+            [['direccionOrigen', 'direccionDestino', 'distancia', 'tiempoEstimado', 'receptorNombre', 'receptorCedula', 'precio', 'fechaRecepcion', 'fechaEntrega', 'usuarioID', 'tabuladorID'], 'required'],
             [['distancia', 'precio'], 'number'],
             [['tiempoEstimado', 'usuarioID', 'estadoEncomiendaID', 'tabuladorID'], 'integer'],
             [['fechaSolicitud', 'fechaRecepcion', 'fechaEntrega'], 'safe'],
-            [['DireccionOrigen', 'DireccionDestino', 'receptorNombre'], 'string', 'max' => 200],
+            [['direccionOrigen', 'direccionDestino', 'receptorNombre'], 'string', 'max' => 200],
             [['receptorCedula'], 'string', 'max' => 12],
             [['estadoEncomiendaID'], 'exist', 'skipOnError' => true, 'targetClass' => EstadoEncomiendas::className(), 'targetAttribute' => ['estadoEncomiendaID' => 'estadoEncomiendasID']],
             [['tabuladorID'], 'exist', 'skipOnError' => true, 'targetClass' => Tabuladores::className(), 'targetAttribute' => ['tabuladorID' => 'tabuladorID']],
@@ -62,8 +62,8 @@ class Encomiendas extends \yii\db\ActiveRecord
     {
         return [
             'encomiendaID' => 'Encomienda ID',
-            'DireccionOrigen' => 'Direccion Origen',
-            'DireccionDestino' => 'Direccion Destino',
+            'direccionOrigen' => 'Direccion Origen',
+            'direccionDestino' => 'Direccion Destino',
             'distancia' => 'Distancia',
             'tiempoEstimado' => 'Tiempo Estimado',
             'receptorNombre' => 'Receptor Nombre',

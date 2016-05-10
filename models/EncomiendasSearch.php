@@ -19,7 +19,7 @@ class EncomiendasSearch extends Encomiendas
     {
         return [
             [['encomiendaID', 'tiempoEstimado', 'usuarioID', 'estadoEncomiendaID', 'tabuladorID'], 'integer'],
-            [['DireccionOrigen', 'DireccionDestino', 'receptorNombre', 'receptorCedula', 'fechaSolicitud', 'fechaRecepcion', 'fechaEntrega'], 'safe'],
+            [['direccionOrigen', 'direccionDestino', 'receptorNombre', 'receptorCedula', 'fechaSolicitud', 'fechaRecepcion', 'fechaEntrega'], 'safe'],
             [['distancia', 'precio'], 'number'],
         ];
     }
@@ -72,8 +72,8 @@ class EncomiendasSearch extends Encomiendas
             'tabuladorID' => $this->tabuladorID,
         ]);
 
-        $query->andFilterWhere(['like', 'DireccionOrigen', $this->DireccionOrigen])
-            ->andFilterWhere(['like', 'DireccionDestino', $this->DireccionDestino])
+        $query->andFilterWhere(['like', 'direccionOrigen', $this->direccionOrigen])
+            ->andFilterWhere(['like', 'direccionDestino', $this->direccionDestino])
             ->andFilterWhere(['like', 'receptorNombre', $this->receptorNombre])
             ->andFilterWhere(['like', 'receptorCedula', $this->receptorCedula]);
 
