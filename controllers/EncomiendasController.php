@@ -28,7 +28,7 @@ class EncomiendasController extends Controller
                 'only' => ['index','create','update'],
                 'rules' => [
                     [
-                        'actions' => ['index','create','update'],
+                        'actions' => ['index','create','update','calculate'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -37,7 +37,7 @@ class EncomiendasController extends Controller
                         }
                     ],
                     [
-                        'actions' => ['index','create','update'],
+                        'actions' => ['index','create','update','calculate'],
                         'allow' => true,
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
@@ -88,7 +88,11 @@ class EncomiendasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCalculate()
+    {
+        return $this->render('calculate');
+    }
+    public function actionCreate($distancia,$tiempo_estimado,$total)
     {
         $model = new Encomiendas();
 
@@ -100,6 +104,8 @@ class EncomiendasController extends Controller
             ]);
         }
     }
+
+    
 
     /**
      * Updates an existing Encomiendas model.

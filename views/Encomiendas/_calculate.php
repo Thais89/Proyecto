@@ -269,4 +269,4 @@ function toRad(deg)
 </table> 
 </div>
 </br>
-<center><?= Html::a('Registrar Encomienda', ['register.php'], ['class' => 'btn btn-success']) ?></center>
+<center><?= Html::a('Registrar Encomienda', ['create','distancia' => '1','tiempo_estimado' =>'1','total' =>'1' ], ['class' => 'btn btn-success']) ?></center>

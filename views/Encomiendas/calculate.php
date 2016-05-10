@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Encomiendas */
 
-$this->title = 'Crear Encomienda';
+$this->title = 'Cotizar Encomienda';
 $this->params['breadcrumbs'][] = ['label' => 'Encomiendas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     	/*$this->render('_form', [
         'model' => $model,
     ])*/
-    	$this->render('_form');
+    	$this->render('_calculate');
     ?>
 
 </div>

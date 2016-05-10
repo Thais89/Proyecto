@@ -88,8 +88,7 @@ class UsuariosController extends Controller
                 $this->layout="_usuario";
             }
             elseif (User::isUserRepartidor(Yii::$app->user->identity->usuarioID))
-            {
-                echo 'es repartidor';
+            {                
                 $this->layout="_repartidor";
             }
             elseif (User::isUserOperador(Yii::$app->user->identity->usuarioID))
@@ -244,14 +243,14 @@ class UsuariosController extends Controller
         }
     }
 
-    public function actionListado () {
+    public function actionListado ($id=NULL) {
         $this->definirLayout();
         $searchModel = new UsuariosSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('listado', [
-            // 'searchModel' => $searchModel,
-            // 'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 }

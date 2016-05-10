@@ -1,4 +1,5 @@
 <?php 
+    use yii\helpers\Html;
     use yii\bootstrap\Nav; 
     use yii\grid\GridView;
 ?>
@@ -45,7 +46,29 @@
     
     <div class="row">
         <div class="col-md-12">
-        
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'usuarioID',
+                'email:email',
+                'password',
+                'nombre',
+                'apellido',
+                // 'cedula',
+                // 'direcion',
+                // 'telefono',
+                // 'estado',
+                // 'fechaRegistro',
+                // 'ultimoLogin',
+                // 'Saldo',
+                // 'authKey',
+                // 'accessToken',
+
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?> 
         </div>
     </div>
     
