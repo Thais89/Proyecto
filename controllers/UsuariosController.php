@@ -52,6 +52,15 @@ class UsuariosController extends Controller
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
 
+                            return User::isUserOperador(Yii::$app->user->identity->usuarioID);
+                        }
+                    ],
+                    [
+                        'actions' => ['index','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
                             return User::isUserRepartidor(Yii::$app->user->identity->usuarioID);
                         }
                     ],
@@ -82,6 +91,10 @@ class UsuariosController extends Controller
             {
                 echo 'es repartidor';
                 $this->layout="_repartidor";
+            }
+            elseif (User::isUserOperador(Yii::$app->user->identity->usuarioID))
+            {
+                $this->layout="_operador";
             }
             else
             {
