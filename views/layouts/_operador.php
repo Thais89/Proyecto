@@ -49,7 +49,7 @@
                     'items' => [                        
                         [
                             'label' => 'Asignar repartidor a Encomienda',
-                            'url' => ['/encomiendas/index','id'=>Yii::$app->user->identity->id]
+                            'url' => ['/encomiendas/asignar','id'=>Yii::$app->user->identity->id]
                         ],
                         [
                             'label' => 'Modificar Encomienda',

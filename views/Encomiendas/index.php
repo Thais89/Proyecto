@@ -25,8 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'encomiendaID',
-            'DireccionOrigen',
-            'DireccionDestino',
+            'direccionOrigen',
+            'direccionDestino',
             'distancia',
             'tiempoEstimado',
             // 'receptorNombre',
