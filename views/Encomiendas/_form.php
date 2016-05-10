@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use dosamigos\datepicker\DatePicker;
 use dosamigos\datetimepicker\DateTimePicker;
 use app\models\Usuarios;
+use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Encomiendas */
@@ -17,7 +18,7 @@ use app\models\Usuarios;
 
     <?= $form->field($model, 'DireccionOrigen')->textArea(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'DireccionDestino')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'DireccionDestino')->textArea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'distancia')->textInput() ?>
 
@@ -29,9 +30,12 @@ use app\models\Usuarios;
 
     <?= $form->field($model, 'precio')->textInput() ?>
 
-    <?= $form->field($model, 'fechaSolicitud')->textInput() ?>
+    <?= 
 
-    <?= $form->field($model, 'fechaRecepcion')->widget(DateTimePicker::className(), [
+
+    //$form->field($model, 'fechaSolicitud')->hiddenInput(['value'=>new CDbExpression('NOW()')])->label(false) 
+
+    $form->field($model, 'fechaRecepcion')->widget(DateTimePicker::className(), [
     'language' => 'es',
     'size' => 'ms',
     //'template' => '{input}',
@@ -39,7 +43,7 @@ use app\models\Usuarios;
     'inline' => false,
     'clientOptions' => [
         'autoclose' => true,
-        'format' => 'dd MM yyyy - HH:ii P',
+        'format' => 'yyyy-mm-dd hh:mm:ss',
         //'todayBtn' => true
     ]
 ]); ?>
@@ -52,16 +56,19 @@ use app\models\Usuarios;
     'inline' => false,
     'clientOptions' => [
         'autoclose' => true,
-        'format' => 'dd MM yyyy - HH:ii P',
+        'format' => 'yyyy-mm-dd hh:mm:ss',
         //'todayBtn' => true
     ]
 ]); ?>
 
-    <?= $form->field($model, 'usuarioID')->textInput(['maxlength' => true]) ?>
+    <?= 
 
-    <?= $form->field($model, 'estadoEncomiendaID')->textInput(['maxlength' => true]) ?>
+    
+    $form->field($model, 'usuarioID')->hiddenInput(['value'=> '1'])->label(false) ?>
 
-    <?= $form->field($model, 'tabuladorID')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'estadoEncomiendaID')->hiddenInput(['value'=> '1'])->label(false) ?>
+
+    <?= $form->field($model, 'tabuladorID')->hiddenInput(['value'=> '1'])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
