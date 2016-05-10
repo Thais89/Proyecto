@@ -25,9 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'password')->passwordInput()->label('Contraseña') ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ])->label('Recuerdame') ?>
+        <div class="row">
+            <div class="col-md-6 text-right">
+                <?= $form->field($model, 'rememberMe')->checkbox()->label('Recuerdame') ?>
+            </div>
+
+            <div class="col-md-6 text-left">
+                <?= Html::a('Recuperar cuenta', 'recuperar-cuenta',['class'=>'']); ?>
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11 text-center">

@@ -129,3 +129,6 @@ h2 {
 
 .well-lg {
   min-height: 200px; }
+
+.form-horizontal .checkbox {
+  padding-top: 0px !important; }
