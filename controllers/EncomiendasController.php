@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
 use yii\filters\AccessControl;
+use app\models\Usuarios;
+use yii\helpers\ArrayHelper;
+use app\models\RepartidorEncomienda;
 
 /**
  * EncomiendasController implements the CRUD actions for Encomiendas model.
@@ -86,13 +89,40 @@ class EncomiendasController extends Controller
      */
     public function actionAsignar()
     {
-        $searchModel = new EncomiendasSearch();
-        $dataProvider = $searchModel->pendientes(Yii::$app->request->queryParams);
+        $model = new RepartidorEncomienda();
+        $vare1 =1;
+        $vare2 =2;
+        if ($vare2==$vare1) {
+            
+        }else
+        {
 
-        return $this->render('asignar', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            $searchModel = new EncomiendasSearch();
+            $dataProvider = $searchModel->pendientes(Yii::$app->request->queryParams);
+
+            $usuarios = new Usuarios();
+            $usuarios = ArrayHelper::map(Usuarios::find()->where(['role' => '1'])->all(),'usuarioID','nombre');
+            $encomieda = ArrayHelper::map(Encomiendas::find()->where(['estadoEncomiendaID' => '1'])->all(),'encomiendaID','encomiendaID');
+
+            return $this->render('asignar', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'A_usuarios' => $usuarios,
+                'A_encomienda' => $encomieda,
+            ]);
+        }
+    }
+
+    public function actionGrid() {
+    
+    if (isset($_POST['keylist'])) {
+        $keys = \yii\helpers\Json::decode($_POST['keylist']);
+        var_dump($keys);
+        // you will have the array of pk ids to process in $keys
+        // perform batch action on these keys and return status
+        // back to ajax call above
+            
+        }
     }
     /**
      * Displays a single Encomiendas model.

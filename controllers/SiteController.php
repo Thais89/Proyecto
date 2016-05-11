@@ -261,7 +261,7 @@ class SiteController extends Controller
 
     public function actionCargar()
     {
-        $this->definirLayout();
+        //$this->definirLayout();
         $model = new TransaccionUsuario();
         $modelUsuarios = new Usuarios();
         $modelDepositos = new Depositos();

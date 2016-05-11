@@ -30,7 +30,7 @@
                         ],
                         [
                             'label' => 'Inhabilitar Usuario',
-                            'url' => ['/usuarios/update','id'=>Yii::$app->user->identity->id]
+                            'url' => ['/usuarios/inhabilitar','id'=>Yii::$app->user->identity->id]
                         ],
                     ],
                     'options' => ['class' =>''], // set this to nav-tab to get tab-styled navigation

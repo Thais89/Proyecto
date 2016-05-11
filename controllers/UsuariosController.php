@@ -116,7 +116,17 @@ class UsuariosController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionInhabilitar()
+    {
+        $this->definirLayout();        
+        $searchModel = new UsuariosSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        return $this->render('inhabilitar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Usuarios model.
      * @param string $id
