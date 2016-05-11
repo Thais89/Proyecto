@@ -259,9 +259,12 @@ class UsuariosController extends Controller
 
     public function actionAsignada(){
         
-        $var = Encomiendas::find()->join('INNER JOIN','repartidor_encomienda','repartidor_encomienda.encomiendaID=encomiendas.encomiendaID')->where(['repartidor_encomienda.usuarioID'=>Yii::$app->user->identity->usuarioID])->andWhere('encomiendas.estadoEncomiendaID=2');
+        $var = Encomiendas::find()->join('INNER JOIN','repartidor_encomienda','repartidor_encomienda.encomiendaID=encomiendas.encomiendaID')->where(['repartidor_encomienda.usuarioID'=>Yii::$app->user->identity->usuarioID])->andWhere(['encomiendas.estadoEncomiendaID'=>'2']);
         
-        $resul = new ActiveDataProvider(['query'=>$var]); 
-        return $this->render('asignada',['dataProvider'=>$resul]);
+       $resul = new ActiveDataProvider (['query'=>$var]); 
+        //echo "<pre>";
+        //var_dump($var);
+        //echo "</pre>";
+        return $this->render('asignada',['dataProvider'=> $resul]);
     }
 }

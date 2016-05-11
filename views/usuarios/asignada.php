@@ -3,6 +3,10 @@
 	use yii\grid\GridView;
 	
 ?>
+<div class="container">
+<div class="row">
+    <h2>Mis encomiendas</h2>
+</div>
 <div class="row">
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,4 +30,4 @@
         ],
     ]); ?>
 </div>
-  
+</div>
