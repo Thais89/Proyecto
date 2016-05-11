@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use yii\bootstrap\ActiveForm;
 use app\models\Usuarios;
 use app\models\Encomiendas;
-
+use app\models\RepartidorEncomienda;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EncomiendasSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -15,7 +15,8 @@ $this->title = 'Asignar Repartidor';
 
 $model = new Usuarios();
 $model1 = new Encomiendas();
-
+$model2 = new RepartidorEncomienda();
+//$model2->fechaSolicitud = date('Y-m-d');
 
 
 //
@@ -38,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
             		],
         		]); ?>
         
-       			<?= $form->field($model, 'usuarioID')->dropDownList($A_usuarios) ?> 
-       			<?= $form->field($model1, 'encomiendaID')->dropDownList($A_encomienda) ?> 
+       			<?= $form->field($model2, 'usuarioID')->dropDownList($A_usuarios) ?> 
+       			<?= $form->field($model2, 'encomiendaID')->dropDownList($A_encomienda) ?> 
 				
 				<?= Html::submitButton('Asignar',['class' => 'btn btn-primary']) ?>
         		
@@ -91,14 +92,13 @@ $this->params['breadcrumbs'][] = $this->title;
 		var keys = $('#grid').yiiGridView('getSelectedRows');
 		console.log(keys);
 		$.post({
-   		url: '/encomiendas/grid', // your controller action
+   		url: '/encomiendas/', // your controller action
    		dataType: 'json',
    		data: {keylist: keys},
    		success: function(data) {
       		alert('I did it! Processed checked rows.')
    		},
 		});
-		alert('End')
 	}
 
     </script>

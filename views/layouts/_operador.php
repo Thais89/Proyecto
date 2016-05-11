@@ -51,14 +51,7 @@
                             'label' => 'Asignar repartidor a Encomienda',
                             'url' => ['/encomiendas/asignar','id'=>Yii::$app->user->identity->id]
                         ],
-                        [
-                            'label' => 'Modificar Encomienda',
-                            'url' => ['#','id'=>Yii::$app->user->identity->id]
-                        ],
-                        [
-                            'label' => 'Chequeo de encomienda',
-                            'url' => ['#','id'=>Yii::$app->user->identity->id]
-                        ],
+                        
                     ],
                     'options' => ['class' =>''], // set this to nav-tab to get tab-styled navigation
                 ]); ?>

@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'encomiendaID',
-            'DireccionOrigen',
-            'DireccionDestino',
+            'direccionOrigen',
+            'direccionDestino',
             'distancia',
             'tiempoEstimado',
             'receptorNombre',

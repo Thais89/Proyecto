@@ -13,7 +13,6 @@ use yii\filters\AccessControl;
 use app\models\Usuarios;
 use yii\helpers\ArrayHelper;
 use app\models\RepartidorEncomienda;
-
 /**
  * EncomiendasController implements the CRUD actions for Encomiendas model.
  */
@@ -90,10 +89,20 @@ class EncomiendasController extends Controller
     public function actionAsignar()
     {
         $model = new RepartidorEncomienda();
-        $vare1 =1;
-        $vare2 =2;
-        if ($vare2==$vare1) {
-            
+        $model->fechaSolicitud = date('Y-m-d');
+
+        $model1 = Encomiendas::find()
+                ->where(['encomiendaID'=>$model->encomiendaID])
+                ->one();
+                
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                $model->save();
+
+                //$model1->estadoEncomiendaID = 2;
+                //$model1->save();
+            return $this->render('/usuarios/home', [
+                'model' => $model,
+            ]);            
         }else
         {
 
