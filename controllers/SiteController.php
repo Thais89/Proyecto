@@ -415,10 +415,10 @@ class SiteController extends Controller
                 var_dump($usuario);
                 echo '</pre>';
                 echo SHA1($model->password);
-                $model->password = SHA1($model->password);
-                $model->save();  
-                // return $this->redirect('site/login');
-                // return $this->goHome();
+                $usuario->password = SHA1($model->password);
+                $usuario->update();
+                $model->update();
+                return $this->goHome();
             } else {
                 return $this->render('confirmar-recuperacion', ['model' => $model]);   
             }
