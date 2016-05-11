@@ -79,4 +79,45 @@ class EncomiendasSearch extends Encomiendas
 
         return $dataProvider;
     }
+
+    public function pendientes($params)
+    {
+        $query = Encomiendas::find()
+                ->where(['estadoEncomiendaID' => '1']);
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'encomiendaID' => $this->encomiendaID,
+            'distancia' => $this->distancia,
+            'tiempoEstimado' => $this->tiempoEstimado,
+            'precio' => $this->precio,
+            'fechaSolicitud' => $this->fechaSolicitud,
+            'fechaRecepcion' => $this->fechaRecepcion,
+            'fechaEntrega' => $this->fechaEntrega,
+            'usuarioID' => $this->usuarioID,
+            'estadoEncomiendaID' => $this->estadoEncomiendaID,
+            'tabuladorID' => $this->tabuladorID,
+        ]);
+
+        $query->andFilterWhere(['like', 'direccionOrigen', $this->direccionOrigen])
+            ->andFilterWhere(['like', 'direccionDestino', $this->direccionDestino])
+            ->andFilterWhere(['like', 'receptorNombre', $this->receptorNombre])
+            ->andFilterWhere(['like', 'receptorCedula', $this->receptorCedula]);
+
+        return $dataProvider;
+    }
 }

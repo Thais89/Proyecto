@@ -42,6 +42,15 @@ class EncomiendasController extends Controller
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
 
+                            return User::isUserOperador(Yii::$app->user->identity->usuarioID);
+                        }
+                    ],
+                    [
+                        'actions' => ['index','create','update','calculate'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
                             return User::isUserSimple(Yii::$app->user->identity->usuarioID);
                         }
                     ],
@@ -71,6 +80,20 @@ class EncomiendasController extends Controller
         ]);
     }
 
+    /**
+     * Lists all Encomiendas models.
+     * @return mixed
+     */
+    public function actionAsignar()
+    {
+        $searchModel = new EncomiendasSearch();
+        $dataProvider = $searchModel->pendientes(Yii::$app->request->queryParams);
+
+        return $this->render('asignar', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Encomiendas model.
      * @param string $id

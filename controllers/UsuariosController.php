@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
+use app\models\Encomiendas;
 
 
 
@@ -52,6 +55,15 @@ class UsuariosController extends Controller
                         'roles' => ['@'],
                         'matchCallback'=>function($rule,$action){
 
+                            return User::isUserOperador(Yii::$app->user->identity->usuarioID);
+                        }
+                    ],
+                    [
+                        'actions' => ['index','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+
                             return User::isUserRepartidor(Yii::$app->user->identity->usuarioID);
                         }
                     ],
@@ -81,6 +93,10 @@ class UsuariosController extends Controller
             elseif (User::isUserRepartidor(Yii::$app->user->identity->usuarioID))
             {                
                 $this->layout="_repartidor";
+            }
+            elseif (User::isUserOperador(Yii::$app->user->identity->usuarioID))
+            {
+                $this->layout="_operador";
             }
             else
             {
@@ -239,5 +255,13 @@ class UsuariosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionAsignada(){
+        
+        $var = Encomiendas::find()->join('INNER JOIN','repartidor_encomienda','repartidor_encomienda.encomiendaID=encomiendas.encomiendaID')->where(['repartidor_encomienda.usuarioID'=>Yii::$app->user->identity->usuarioID])->andWhere('encomiendas.estadoEncomiendaID=2');
+        
+        $resul = new ActiveDataProvider(['query'=>$var]); 
+        return $this->render('asignada',['dataProvider'=>$resul]);
     }
 }
