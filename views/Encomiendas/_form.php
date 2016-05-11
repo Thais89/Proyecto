@@ -16,24 +16,36 @@ use app\models\User;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'DireccionOrigen')->textArea(['maxlength' => true]) ?>
+    <?= 
 
-    <?= $form->field($model, 'DireccionDestino')->textArea(['maxlength' => true]) ?>
+    $distancia = Yii::$app->request->post('distance');
+    $tiempo = Yii::$app->request->post('time');
+    $total = Yii::$app->request->post('todo');
+    $document = Yii::$app->request->post('document');
 
-    <?= $form->field($model, 'distancia')->textInput() ?>
+    echo "distancia es "+$distancia;
+    echo "tiempo es "+$tiempo;
+    echo "total es "+$total;
+    echo "los documentos son "+$document; ?>
 
-    <?= $form->field($model, 'tiempoEstimado')->textInput() ?>
+    <?= $form->field($model, 'direccionOrigen')->textArea(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'receptorNombre')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'direccionDestino')->textArea(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'distancia')->textInput(['maxlength' => true,'disabled' => true, 'value' => $distancia]) ?>
+
+    <?= $form->field($model, 'tiempoEstimado')->textInput(['maxlength' => true,'disabled' => true, 'value' => $tiempo]) ?>
+
+    <?= $form->field($model, 'receptorNombre')->textInput(['maxlength' => true])  ?>
 
     <?= $form->field($model, 'receptorCedula')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'precio')->textInput() ?>
+    <?= $form->field($model, 'precio')->textInput(['maxlength' => true,'disabled' => true, 'value' => $total]) ?>
 
     <?= 
 
 
-    //$form->field($model, 'fechaSolicitud')->hiddenInput(['value'=>new CDbExpression('NOW()')])->label(false) 
+    
 
     $form->field($model, 'fechaRecepcion')->widget(DateTimePicker::className(), [
     'language' => 'es',
@@ -63,12 +75,12 @@ use app\models\User;
 
     <?= 
 
-    
-    $form->field($model, 'usuarioID')->hiddenInput(['value'=> '1'])->label(false) ?>
+    $id=Yii::$app->user->getId();    
+    $form->field($model, 'usuarioID')->hiddenInput(['value'=> $id])->label(false) ?>
 
     <?= $form->field($model, 'estadoEncomiendaID')->hiddenInput(['value'=> '1'])->label(false) ?>
 
-    <?= $form->field($model, 'tabuladorID')->hiddenInput(['value'=> '1'])->label(false) ?>
+    <?= $form->field($model, 'tabuladorID')->hiddenInput(['value'=> $document])->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
