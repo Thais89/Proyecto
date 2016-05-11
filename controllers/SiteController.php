@@ -331,4 +331,36 @@ class SiteController extends Controller
         $this->definirLayout();
         return $this->render("/usuarios/create");
     }
+
+    public function actionRecuperarCuenta () {
+        $this->definirLayout();
+        $model = new LoginForm();
+        
+        if ($model->load(Yii::$app->request->post())) {     
+
+            /**
+            * Crea el correo para la recuperación
+            */
+           
+            $subject    = 'Recuperación de cuenta';
+            $body       = '<p>Haga click para recuperar 
+                            la contraseña. <a href"">Recuperar contraseña</a> </p>';
+            $body       .= 'Recuperar contraseña';
+                        
+            Yii::$app->mailer->compose()
+                ->setTo($model->username)
+                ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
+                ->setSubject($subject)
+                ->setHtmlBody($body)
+                ->send();
+
+            Yii::$app->session->setFlash('contactFormSubmitted');
+
+            return $this->refresh();
+
+            // return $this->render("recuperar-cuenta", ['model' => $model]);
+        }else{
+            return $this->render('recuperar-cuenta', ['model' => $model]);
+        }
+    }
 }

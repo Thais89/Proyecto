@@ -56,7 +56,7 @@ class Usuarios extends \yii\db\ActiveRecord
             [['direccion'], 'string', 'max' => 200],
             [['telefono'], 'string', 'max' => 15],
             [['email'], 'unique'],            
-            [['email'], 'email', 'message' => 'Email Invalido']
+            [['email'], 'email', 'message' => 'Correo Invalido']
         ];
 
     }
