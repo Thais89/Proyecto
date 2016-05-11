@@ -62,7 +62,8 @@ $config = [
                 'confirmar-usuario/<authKey>'  => 'site/confirmar-usuario',
                 'usuarios/home'     => 'usuarios/index',
                 'login'             => 'site/login',
-                'recuperar-cuenta'  =>  'site/recuperar-cuenta'
+                'recuperar-cuenta'  =>  'site/recuperar-cuenta',
+                'confirmar-recuperacion/<token>'  => 'site/confirmar-recuperacion',
             ],
         ],
         

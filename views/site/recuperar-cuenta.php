@@ -4,8 +4,10 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
+
 $this->title = 'Recuperar cuenta';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
 <div class="container">
@@ -19,11 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
         		'options' => ['class' => 'form-horizontal'],        
     		]); ?>
 
-        	<?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('') ?>
+        	<?= $form->field($model, 'email')->textInput(['autofocus' => true])->label('') ?>
 
         	<div class="form-group">
             	<div class="col-md-12">
-                	<?= Html::submitButton('Iniciar Sesión', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                	<?= Html::submitButton('Recuperar Cuenta', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
             	</div>
         	</div>
 
