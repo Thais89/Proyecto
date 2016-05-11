@@ -42,11 +42,11 @@ class Usuarios extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['email', 'password', 'nombre', 'apellido', 'cedula', 'direccion', 'telefono', 'estado', 'fechaRegistro','role'], 'required'],
+            [['email', 'password', 'nombre', 'apellido', 'cedula', 'telefono', 'estado', 'fechaRegistro','role'], 'required'],
             [['estado','role'], 'integer'],
             [['fechaRegistro'], 'safe'],            
-            [['nombre'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
-            [['apellido'], 'match', 'pattern' =>  "/^[a-zA-Z]+$/i",'message' => 'Sólo se aceptan letras'],
+            [['nombre'], 'match', 'pattern' =>  "/^[a-zA-Z]+(\s*[a-zA-Z]*)+$/i",'message' => 'Sólo se aceptan letras'],
+            [['apellido'], 'match', 'pattern' =>  "/^[a-zA-Z]+(\s*[a-zA-Z]*)+$/i",'message' => 'Sólo se aceptan letras'],
             [['saldo'], 'number'],
             [['email', 'nombre', 'apellido', 'ultimoLogin'], 'string', 'max' => 45],
             [['password', 'authKey', 'accessToken'], 'string', 'max' => 250],
@@ -68,13 +68,13 @@ class Usuarios extends \yii\db\ActiveRecord
     {
         return [
             'UsuarioID' => 'Usuario ID',
-            'email' => 'Correo',
-            'password' => 'Contraseña',
-            'nombre' => 'Nombre',
-            'apellido' => 'Apellido',
-            'cedula' => 'Cédula',
+            'email' => '(*) Correo',
+            'password' => '(*) Contraseña',
+            'nombre' => '(*) Nombre',
+            'apellido' => '(*) Apellido',
+            'cedula' => '(*) Cédula',
             'direccion' => 'Direccion',
-            'telefono' => 'Telefono',
+            'telefono' => '(*) Telefono',
             'estado' => 'Estado',
             'fechaRegistro' => 'Fecha Registro',
             'ultimoLogin' => 'Ultimo Login',
