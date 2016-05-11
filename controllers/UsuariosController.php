@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\User;
 use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
+use app\models\Encomiendas;
 
 
 
@@ -262,5 +265,13 @@ class UsuariosController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionAsignada(){
+        
+        $var = Encomiendas::find()->join('INNER JOIN','repartidor_encomienda','repartidor_encomienda.encomiendaID=encomiendas.encomiendaID')->where(['repartidor_encomienda.usuarioID'=>Yii::$app->user->identity->usuarioID])->andWhere('encomiendas.estadoEncomiendaID=2');
+        
+        $resul = new ActiveDataProvider(['query'=>$var]); 
+        return $this->render('asignada',['dataProvider'=>$resul]);
     }
 }

@@ -14,6 +14,9 @@ use app\models\TransaccionUsuario;
 use app\models\Transacciones;
 use app\models\Depositos;
 use yii\db\Expression;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
+use app\models\encomienda;
 
 class SiteController extends Controller
 {
@@ -82,7 +85,23 @@ class SiteController extends Controller
             
             $model->password = SHA1($model->password);            
             if ($model->login()) {    
-                $this->redirect('usuarios/home');
+                 if (User::isUserAdmin(Yii::$app->user->identity->usuarioID))
+                {
+                   return $this->redirect (['/usuarios/listado']);   
+                }
+                elseif (User::isUserSimple(Yii::$app->user->identity->usuarioID))
+                {
+                    return $this->redirect (['/site/index']);
+                }
+                elseif (User::isUserRepartidor(Yii::$app->user->identity->usuarioID))
+                {                   
+                    return $this->redirect (['/usuarios/asignada']);
+                }
+                elseif (User::isUserOperador(Yii::$app->user->identity->usuarioID))
+                {                   
+                    return $this->redirect (['/site/index']);
+                }
+
             } else {
                 // Aqui se debe poner pagina de error de login
                 echo 'No hace login';
