@@ -92,8 +92,9 @@ class EncomiendasController extends Controller
     {
         return $this->render('calculate');
     }
-    public function actionCreate($distancia,$tiempo_estimado,$total)
+    public function actionCreate()
     {
+        Yii::$app->controller->enableCsrfValidation = false;
         $model = new Encomiendas();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

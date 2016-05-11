@@ -131,7 +131,9 @@ use app\models\Usuarios;
         distance += "<br/> El cargo por cantidad de documentos es: "+ precio_documentos +" Bs";
         distance += "<br/><br/> <h3>El costo TOTAL de la encomienda es: "+ total +" Bs</h3>";
         document.getElementById("distance_road").innerHTML = distance;
-        
+        document.getElementById("total").innerHTML = total;
+        document.getElementById("distancia").innerHTML = response.routes[0].legs[0].distance.text.substring(0,response.routes[0].legs[0].distance.text.length -3);
+        document.getElementById("tiempo").innerHTML = response.routes[0].legs[0].duration.text.substring(0,response.routes[0].legs[0].duration.text.length -5);
       }
     });
     
@@ -213,7 +215,12 @@ function toRad(deg)
 }
 
 </script> 
-<div id="contenedor" onload="initialize()">
+
+<?php $form = ActiveForm::begin([
+    'id' => 'calculos',
+    'action' => ['create'],
+]); ?>
+<div id="contenedor" onload="initialize()" >
  <table align="center" width="810px" border="0" >
     <caption><center><h3>COTIZACION DE ENCOMIENDA</h3></center></caption>
     <tr>
@@ -236,8 +243,8 @@ function toRad(deg)
 
       <td>
         <div id="latlong2">
-          <p>Latitud Destino: &nbsp;&nbsp;&nbsp;<input size="20" type="text" id="latbox2" name="lat" ></p>
-          <p>Longitud Destino: <input size="20" type="text" id="lngbox2" name="lng" ></p>
+          <p>Latitud Destino: &nbsp;&nbsp;&nbsp;<input size="20" type="text" id="latbox2" name="lat2" ></p>
+          <p>Longitud Destino: <input size="20" type="text" id="lngbox2" name="lng2" ></p>
         </div>
       </td>
     </tr>
@@ -245,19 +252,22 @@ function toRad(deg)
       <td colspan="10" align="center">
       </br>
     </br>
-    <p>Ingrese cantidad de sobres a enviar: &nbsp;&nbsp;&nbsp;<input type="number" id="documentos" min="1" max="50">
+    <p>Ingrese cantidad de sobres a enviar: &nbsp;&nbsp;&nbsp;<input type="number" id="documentos" name="document" min="1" max="50">
     </td>
   </tr>
   <tr>
     <td colspan="10" align="center">
     </br>
   </br>
-  <input type="button" value="Cotizar" onclick="calculate();"/>
+  <input type="button" value="Cotizar" class="btn btn-primary" onclick="calculate();"/>
 </td>
 </tr>
 <tr>
   <td colspan="10" align="center">
   </br>
+  <div  id="distancia" name="distance"></div>
+  <div  id="tiempo" name="time"></div>
+  <div  id="total" name="todo"></div>
   <center><div style="width:100%; height:10%" id="distance_direct"></div></center>
 </br>
 <center><div style="width:100%; height:10%" id="distance_road"></div></center>
@@ -269,4 +279,6 @@ function toRad(deg)
 </table> 
 </div>
 </br>
-<center><?= Html::a('Registrar Encomienda', ['create','distancia' => '1','tiempo_estimado' =>'1','total' =>'1' ], ['class' => 'btn btn-success']) ?></center>
+<center><?= Html::submitButton('Registrar Encomienda', ['class' => 'btn btn-primary']) ?></center>
+
+<?php ActiveForm::end();?>
