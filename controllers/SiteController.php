@@ -355,6 +355,8 @@ class SiteController extends Controller
         $this->definirLayout();
         $model = new LoginForm();
         
+        $model->authKey = SHA1(date('Y-m-d h:i:s') . $model->email);
+
         if ($model->load(Yii::$app->request->post())) {     
 
             /**
