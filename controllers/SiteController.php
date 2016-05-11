@@ -17,6 +17,7 @@ use yii\db\Expression;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use app\models\encomienda;
+use app\models\RecuperarCuenta;
 
 class SiteController extends Controller
 {
@@ -353,33 +354,80 @@ class SiteController extends Controller
 
     public function actionRecuperarCuenta () {
         $this->definirLayout();
-        $model = new LoginForm();
+        $model = new Usuarios();
+        $modelRecuperar = new RecuperarCuenta();
         
-        if ($model->load(Yii::$app->request->post())) {     
-
+        if ($model->load(Yii::$app->request->post())) {                 
             /**
-            * Crea el correo para la recuperación
-            */
-           
-            $subject    = 'Recuperación de cuenta';
-            $body       = '<p>Haga click para recuperar 
-                            la contraseña. <a href"">Recuperar contraseña</a> </p>';
-            $body       .= 'Recuperar contraseña';
-                        
-            Yii::$app->mailer->compose()
-                ->setTo($model->username)
-                ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
-                ->setSubject($subject)
-                ->setHtmlBody($body)
-                ->send();
+             * Inserta data en recuperar cuenta
+             */
+            $modelRecuperar->token = SHA1(date('Y-m-d h:i:s') . $model->email);
+            $modelRecuperar->usuarioEmail = $model->email;
 
-            Yii::$app->session->setFlash('contactFormSubmitted');
+            if ($modelRecuperar->save()) {
+                /**
+                * Crea el correo para la recuperación
+                */
+                $subject    = 'Recuperación de cuenta';
+                $body       = '<h2>Recuperación de contraseña</h2>';
+                $body       .= '<p>Haga click para recuperar 
+                                la contraseña. <a href="http://localhost/deliverysc/web/confirmar-recuperacion/'.$modelRecuperar->token.'">Recuperar contraseña</a> </p>';                
+                                
+                Yii::$app->mailer->compose()
+                    ->setTo($modelRecuperar->usuarioEmail)
+                    ->setFrom([Yii::$app->params["adminEmail"]=>Yii::$app->params["title"]])
+                    ->setSubject($subject)
+                    ->setHtmlBody($body)
+                    ->send();
 
-            return $this->refresh();
+                // Yii::$app->session->setFlash('contactFormSubmitted');
 
-            // return $this->render("recuperar-cuenta", ['model' => $model]);
+                return $this->refresh();
+
+                // return $this->render("recuperar-cuenta", ['model' => $model]);    
+            }
+
+            
         }else{
             return $this->render('recuperar-cuenta', ['model' => $model]);
         }
+    }
+
+    public function actionConfirmarRecuperacion ( $token = NULL ) {
+        $this->definirLayout();
+        $model          = new Usuarios();
+        $tableUsuario   = new Usuarios();
+        $tableRecuperar = new RecuperarCuenta();
+
+        $recuperar = $tableRecuperar
+                    ->find('usuarioEmail')
+                    ->where(['token'=>$token])
+                    ->one();
+
+        if (isset($recuperar)) {
+            if ($model->load(Yii::$app->request->post())) {
+                $usuario = $tableUsuario
+                    ->find('password')
+                    ->where(['email'=>$recuperar->usuarioEmail])
+                    ->one();
+
+                echo '<pre>';
+                var_dump($usuario);
+                echo '</pre>';
+                echo SHA1($model->password);
+                $usuario->password = SHA1($model->password);
+                $usuario->update();
+                $model->update();
+                return $this->goHome();
+            } else {
+                return $this->render('confirmar-recuperacion', ['model' => $model]);   
+            }
+                
+        } else{
+            return $this->render('confirmar-recuperacion', ['model' => $model]);   
+        }
+
+        
+
     }
 }
